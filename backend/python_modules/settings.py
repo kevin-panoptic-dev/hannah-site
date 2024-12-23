@@ -4,6 +4,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# modified: -----------------------------------------------
+AUTH_USER_MODEL = "authentication.SiteUser"
+
+AUTHENTICATION_BACKENDS = [
+    "authentication.auth_backends.EmailWithUsernameBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+# ---------------------------------------------------------
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-%=501ry@m!62j3l2h=8ste9z!&#$b=y4jj7y^v8)smpzw(81kg"
@@ -34,7 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+    "authentication",
 ]
 
 MIDDLEWARE = [
