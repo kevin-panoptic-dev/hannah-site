@@ -10,7 +10,7 @@ from .views import (
 urlpatterns = [
     path("register/", CreateSiteUser.as_view(), name="register"),
     path("login/", LoginSiteUser.as_view(), name="login"),
-    path("delete/<int:user_id>/int:<type>/", DeleteSiteUser.as_view(), name="delete"),
+    path("delete/", DeleteSiteUser.as_view(), name="delete"),
     path("logout/", LogoutSiteUser.as_view(), name="logout"),
     path("thankyou/", ChangTypeToDonator.as_view(), name="thankyou"),
 ]

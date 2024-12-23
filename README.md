@@ -1,4 +1,4 @@
-# Warning: Some Function are never tested
+# Warning: Some Functions are never tested
 
 ## Include
 
@@ -6,5 +6,5 @@
 /backend/authentication/views.py
 ```
 
-delete site user
+delete site user  
 change site user to donator

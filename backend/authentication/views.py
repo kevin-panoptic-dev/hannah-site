@@ -1,8 +1,14 @@
 from django.shortcuts import render
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import SiteUser
-from .serializer import SiteUserSerializer, LoginUserSerializer
+from .serializer import (
+    SiteUserSerializer,
+    LoginUserSerializer,
+    LogoutUserSerializer,
+    ChangeTypeToDonatorSerializer,
+    DeleteUserSerializer,
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
@@ -64,7 +70,10 @@ class LoginSiteUser(APIView):
 
 
 class DeleteSiteUser(APIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return SiteUser.objects.all()
 
     def get_object(self, user_id: int):
         try:
@@ -73,48 +82,66 @@ class DeleteSiteUser(APIView):
             # prismelt(user_id, color=(255, 0, 0))
             raise NotFound("The user does not exist.")
 
-    def delete(self, request, user_id: int, type: Literal[0] | Literal[1]):
-        if type != 0 and type != 1:
-            raise ValueError(f"Type must be 0 (normal) or 1 (hard).")
+    def post(self, request):
+        serializer = DeleteUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user_id = serializer.validated_data["user_id"]  # type: ignore
+            delete_type = serializer.validated_data["delete_type"]  # type: ignore
 
-        danger_user = self.get_object(user_id=user_id)
-        if danger_user.user_type == "d" and not type:
-            return Response(
-                {"detail": "this is a donator, are you sure to remove?"},
-                status=status.HTTP_302_FOUND,
-            )
+            danger_user = self.get_object(user_id=user_id)
+            if danger_user.user_type == "d" and not delete_type:
+                return Response(
+                    {"detail": "this is a donator, are you sure to remove?"},
+                    status=status.HTTP_302_FOUND,
+                )
 
+            else:
+                danger_user.delete()
+                return Response(
+                    {"detail": "site user delete successfully"},
+                    status=status.HTTP_200_OK,
+                )
         else:
-            danger_user.delete()
             return Response(
-                {"detail": "site user delete successfully"}, status=status.HTTP_200_OK
+                {"detail": f"serializer error {serializer.errors}"},
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
 
 class LogoutSiteUser(APIView):
-    permission_classes = [AllowAny]  # testing purpose
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return SiteUser.objects.all()
 
     def post(self, request):
-        try:
-            refresh_token = request.data.get("refresh_token")
+        serializer = LogoutUserSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                refresh_token = serializer.validated_data["refresh_token"]  # type: ignore
 
-            if not refresh_token:
+                if not refresh_token:
+                    return Response(
+                        {"detail": "No refresh token provided."},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+
                 return Response(
-                    {"detail": "No refresh token provided."},
-                    status=status.HTTP_400_BAD_REQUEST,
+                    {"detail": "Successfully logged out."},
+                    status=status.HTTP_205_RESET_CONTENT,
                 )
 
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-
+            except Exception as e:
+                return Response(
+                    {"detail": f"Error logging out: {str(e)}"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        else:
             return Response(
-                {"detail": "Successfully logged out."},
-                status=status.HTTP_205_RESET_CONTENT,
-            )
-
-        except Exception as e:
-            return Response(
-                {"detail": f"Error logging out: {str(e)}"},
+                {"detail": f"serializer error: {serializer.errors}"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -122,33 +149,52 @@ class LogoutSiteUser(APIView):
 class ChangTypeToDonator(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        try:
-            donator: SiteUser = request.user
-            amount: float = request.amount
-            date = timezone.now()
-            if donator.user_type != "d":
-                donator.donated_amount = amount
-                donator.date_become_donator = date
-                donator.user_type = "d"
-            else:
-                # donated_amount must not be null to become a donator
-                assert isinstance(donator.donated_amount, float)
-                donator.donated_amount += amount
+    def get_queryset(self):
+        return SiteUser.objects.all()
 
-            donator.save()
+    def get_donator(self, user_id):
+        try:
+            return SiteUser.objects.get(id=user_id)
+        except SiteUser.DoesNotExist:
+            raise NotFound("This site user doesn't not exist.")
+
+    def post(self, request):
+        serializer = ChangeTypeToDonatorSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                donator_id: int = serializer.validated_data["donator_id"]  # type: ignore
+                amount: float = serializer.validated_data["amount"]  # type: ignore
+                donator = self.get_donator(donator_id)
+                date = timezone.now()
+                if donator.user_type != "d":
+                    donator.donated_amount = amount
+                    donator.date_become_donator = date
+                    donator.user_type = "d"
+                else:
+                    # donated_amount must not be null to become a donator
+                    assert isinstance(donator.donated_amount, float)
+                    donator.donated_amount += amount
+
+                donator.save()
+                return Response(
+                    {"detail": "user successfully donated"}, status=status.HTTP_200_OK
+                )
+            except AssertionError:
+                return Response(
+                    {
+                        "detail": "The code have some logic error around donation handling."
+                    },
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+            except Exception as e:
+                return Response(
+                    {
+                        "detail": f"an unknown error happens in handling donator status update: {str(e)}"
+                    },
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+        else:
             return Response(
-                {"detail": "user successfully donated"}, status=status.HTTP_200_OK
-            )
-        except AssertionError:
-            return Response(
-                {"detail": "The code have some logic error around donation handling."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
-        except Exception as e:
-            return Response(
-                {
-                    "detail": f"an unknown error happens in handling donator status update: {str(e)}"
-                },
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                {"detail": f"serializer error: {serializer.errors}"},
+                status=status.HTTP_400_BAD_REQUEST,
             )
