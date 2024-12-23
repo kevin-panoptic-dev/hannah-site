@@ -8,4 +8,5 @@ urlpatterns = [
     path("auth/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
     path("auth-rest/", include("rest_framework.urls")),
     path("auth/", include("authentication.urls")),
+    path("ai/", include("machine_learning.urls")),
 ]

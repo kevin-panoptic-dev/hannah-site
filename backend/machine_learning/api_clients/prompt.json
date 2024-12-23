@@ -1,0 +1,5 @@
+{
+    "s": "analysis the sentiment of the following text: ",
+    "r": "analysis whether the following text is related to Hannah: ",
+    "c": "response the user's question based on the following data: "
+}
