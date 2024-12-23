@@ -1,4 +1,4 @@
-from loader import JSON, GEMINI_API_URL, HEADERS, get_prompt
+from .loader import JSON, GEMINI_API_URL, HEADERS, get_prompt
 import httpx
 import asyncio
 from typing import Literal

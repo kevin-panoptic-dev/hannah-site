@@ -1,5 +1,5 @@
 {
-    "s": "analysis the sentiment of the following text: ",
-    "r": "analysis whether the following text is related to Hannah: ",
-    "c": "response the user's question based on the following data: "
+    "s": "analysis the sentiment of the following text: response with a single integer: 0 for positive, 1 for negative or neutral",
+    "r": "analysis whether the following text is related to Hannah: response with a single integer: 0 for relevant, irrelevant",
+    "c": "response the user's question based on the following data: The apple here is not tasty."
 }

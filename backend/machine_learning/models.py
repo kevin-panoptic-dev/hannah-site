@@ -1,5 +1,5 @@
 from django.db import models
-from ..authentication.models import SiteUser
+from authentication.models import SiteUser
 from .constants import REQUEST_TYPE_CHOICE
 
 
