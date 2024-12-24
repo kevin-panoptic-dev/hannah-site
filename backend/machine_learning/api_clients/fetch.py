@@ -17,8 +17,6 @@ async def request_gemini(request_type: Literal["s", "r", "c"], message: str):
     if request_type not in ["s", "r", "c"]:
         raise ValueError(f"request type be `s`, `r`, or `c`.")
 
-    prismelt("We are here!", color=(255, 0, 0))
-
     try:
         prompt = get_prompt(key=request_type)
         text = f"{prompt} Here's the user's message: {message}"
@@ -26,6 +24,7 @@ async def request_gemini(request_type: Literal["s", "r", "c"], message: str):
         response = await async_post_request(
             url=GEMINI_API_URL, json=JSON, headers=HEADERS
         )
+        prismelt("We are here!", color=(255, 0, 0))
 
         if response.status_code == 200:
             data = response.json()
@@ -57,7 +56,8 @@ async def request_gemini(request_type: Literal["s", "r", "c"], message: str):
 
 
 async def parseGeminiResponse(*, data: dict, request_type: str) -> dict:
-    response_text = data["candidates"][0]["content"]["parts"][0]["text"]
+    response_text: str = data["candidates"][0]["content"]["parts"][0]["text"]
+    response_text = response_text.strip("\n").strip()
     match request_type:
         case "s":
             if response_text == "0":  # no error occurs, positive

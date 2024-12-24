@@ -3,8 +3,7 @@
 ## Include
 
 ```plain text
-/backend/authentication/views.py
+/backend/machine_learning/views.py
 ```
 
-delete site user  
-change site user to donator
+Delete Gemini Model

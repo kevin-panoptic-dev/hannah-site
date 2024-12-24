@@ -7,21 +7,17 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
-from asgiref.sync import sync_to_async
-from pymodule.utility import prismelt
 import asyncio
 
 
 class CreateGeminiModel(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
         return GeminiModel.objects.filter(user=user)
 
     def post(self, request):
-        prismelt("I'm executed! 3", color=(0, 0, 255))
-
         serializer = GeminiModelSerializer(data=request.data)
         if serializer.is_valid():
             try:
@@ -56,17 +52,17 @@ class CreateGeminiModel(APIView):
 
         match request_type:
             case "c":
-                loop = asyncio.get_event_loop()
+                loop = asyncio.new_event_loop()
                 chat_response = loop.run_until_complete(request_gemini("c", message))
                 if chat_response["error"]:
                     match chat_response["response"]:
                         case "API ERROR":
                             return status.HTTP_400_BAD_REQUEST, {
-                                "detail": "Gemini cannot respond, may be due to a policy update or reached limitation."
+                                "detail": f"Gemini cannot respond, may be due to a policy update or reached limitation: {chat_response["error_message"]}"
                             }
                         case "SYSTEM ERROR":
                             return status.HTTP_500_INTERNAL_SERVER_ERROR, {
-                                "detail": "Gemini cannot respond, may be due to a policy update or reached limitation."
+                                "detail": f"Gemini system encounters an error: {chat_response["error_message"]}"
                             }
                         case "BAD INPUT":
                             return status.HTTP_422_UNPROCESSABLE_ENTITY, {
@@ -82,7 +78,7 @@ class CreateGeminiModel(APIView):
                     return status.HTTP_200_OK, {"detail": chat_response["response"]}
 
             case "f":
-                loop = asyncio.get_event_loop()
+                loop = asyncio.new_event_loop()
                 relevant_validation_result, positivity_validation_result = (
                     loop.run_until_complete(
                         self.anti_async(["r", "s"], [message, message])
@@ -94,7 +90,7 @@ class CreateGeminiModel(APIView):
                     match relevant_validation_result["response"]:
                         case "API ERROR":
                             return status.HTTP_400_BAD_REQUEST, {
-                                "detail": "Gemini cannot respond, likely due to a policy update, reached limitation, or request issue."
+                                "detail": f"Gemini cannot respond, likely due to a policy update, reached limitation, or request issue: {relevant_validation_result["error_message"]}"
                             }
                         case "SYSTEM ERROR":
                             return status.HTTP_500_INTERNAL_SERVER_ERROR, {
@@ -113,7 +109,7 @@ class CreateGeminiModel(APIView):
                     match positivity_validation_result["response"]:
                         case "API ERROR":
                             return status.HTTP_400_BAD_REQUEST, {
-                                "detail": "Gemini cannot respond, likely due to a policy update, reached limitation, or request issue."
+                                "detail": f"Gemini cannot respond, likely due to a policy update, reached limitation, or request issue: {positivity_validation_result["error_message"]}"
                             }
                         case "SYSTEM ERROR":
                             return status.HTTP_500_INTERNAL_SERVER_ERROR, {
@@ -140,7 +136,7 @@ class CreateGeminiModel(APIView):
 
 
 class DeleteGeminiModel(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         return GeminiModel.objects.all()
