@@ -58,6 +58,7 @@ async def request_gemini(request_type: Literal["s", "r", "c", "t"], message: str
 async def parseGeminiResponse(*, data: dict, request_type: str) -> dict:
     response_text: str = data["candidates"][0]["content"]["parts"][0]["text"]
     response_text = response_text.strip("\n").strip()
+    prismelt(response_text, color=(0, 0, 255))
     match request_type:
         case "s":
             if response_text == "0":  # no error occurs, positive

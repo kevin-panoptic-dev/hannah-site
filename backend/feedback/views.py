@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import FeedbackModel
 from .serializer import FeedbackModelSerializer, DeleteFeedbackModelSerializer
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
@@ -66,7 +66,7 @@ class CreateFeedbackModel(APIView):
             return Response(pseudo_http_response[1], status=pseudo_http_response[0])
 
     def serializer_converter(self, serializer):
-        message: str = serializer.validated_data["message"]
+        message: str = serializer.validated_data["content"]
         request_type = "f"
         data = {"message": message, "request_type": request_type}
         new_pseudo_serializer = PseudoSerializer(data)
