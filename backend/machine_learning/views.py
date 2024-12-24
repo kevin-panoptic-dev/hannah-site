@@ -22,6 +22,15 @@ class CreateGeminiModel(APIView):
         if serializer.is_valid():
             try:
                 response = self.fetch(serializer)
+                if response[0] == status.HTTP_200_OK:  # chat response oks
+                    serializer.save()
+                    serializer.save(
+                        user=self.request.user, response_data=response[1]["detail"]
+                    )
+                    return Response(
+                        {"detail": response[1]["detail"]["response"]},
+                        status=status.HTTP_200_OK,
+                    )
                 return Response(response[1], status=response[0])
             except Exception as e:
                 return Response(
@@ -36,7 +45,8 @@ class CreateGeminiModel(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-    async def anti_async(self, request_types: list, messages: list):
+    @classmethod
+    async def anti_async(cls, request_types: list, messages: list):
         tasks = []
         for i in range(len(request_types)):
             tasks.append(
@@ -46,7 +56,8 @@ class CreateGeminiModel(APIView):
         results = await asyncio.gather(*tasks)
         return results
 
-    def fetch(self, serializer):
+    @classmethod
+    def fetch(cls, serializer):
         request_type = serializer.validated_data["request_type"]
         message = serializer.validated_data["message"]
 
@@ -73,16 +84,16 @@ class CreateGeminiModel(APIView):
                                 "detail": "An unknown error occurred."
                             }
                 else:
-                    # Save to serializer
-                    serializer.save(user=self.request.user, response_data=chat_response)
-                    return status.HTTP_200_OK, {"detail": chat_response["response"]}
+                    return status.HTTP_200_OK, {"detail": chat_response}
 
             case "f":
                 loop = asyncio.new_event_loop()
-                relevant_validation_result, positivity_validation_result = (
-                    loop.run_until_complete(
-                        self.anti_async(["r", "s"], [message, message])
-                    )
+                (
+                    relevant_validation_result,
+                    positivity_validation_result,
+                    type_validation_result,
+                ) = loop.run_until_complete(
+                    cls.anti_async(["r", "s", "t"], [message, message, message])
                 )
 
                 # Handle errors for relevant validation
@@ -126,7 +137,7 @@ class CreateGeminiModel(APIView):
                 else:
                     # If all validations pass
                     return status.HTTP_201_CREATED, {
-                        "detail": f"{positivity_validation_result['response']}, {relevant_validation_result['response']}"
+                        "detail": str(type_validation_result["response"])
                     }
 
             case _:

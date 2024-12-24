@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "authentication",
     "machine_learning",
+    "feedback",
 ]
 
 MIDDLEWARE = [

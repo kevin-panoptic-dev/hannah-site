@@ -9,4 +9,5 @@ urlpatterns = [
     path("auth-rest/", include("rest_framework.urls")),
     path("auth/", include("authentication.urls")),
     path("ai/", include("machine_learning.urls")),
+    path("report/", include("feedback.urls")),
 ]

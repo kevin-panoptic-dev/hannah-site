@@ -11,11 +11,11 @@ async def async_post_request(*, url, json, headers):
         return response
 
 
-async def request_gemini(request_type: Literal["s", "r", "c"], message: str):
+async def request_gemini(request_type: Literal["s", "r", "c", "t"], message: str):
     if not isinstance(message, str):
         raise TypeError(f"message must be a string, not {type(message).__name__}.")
-    if request_type not in ["s", "r", "c"]:
-        raise ValueError(f"request type be `s`, `r`, or `c`.")
+    if request_type not in ["s", "r", "c", "t"]:
+        raise ValueError(f"request type be `s`, `r`, `t` or `c`.")
 
     try:
         prompt = get_prompt(key=request_type)
@@ -90,5 +90,37 @@ async def parseGeminiResponse(*, data: dict, request_type: str) -> dict:
                     "error_message": "Relevant Analysis result is negative",
                     "response": "IRRELEVANT",
                 }
+        case "t":
+            match response_text:
+                case "0":
+                    return {
+                        "error": False,
+                        "error_message": None,
+                        "response": "ACADEMIC",
+                    }
+                case "1":
+                    return {
+                        "error": False,
+                        "error_message": None,
+                        "response": "EXTRACURRICULAR",
+                    }
+                case "2":
+                    return {
+                        "error": False,
+                        "error_message": None,
+                        "response": "RELATION",
+                    }
+                case "3":
+                    return {
+                        "error": False,
+                        "error_message": None,
+                        "response": "CHARACTERISTIC",
+                    }
+                case _:
+                    return {
+                        "error": False,
+                        "error_message": None,
+                        "response": "GENERAL",
+                    }
         case _:
             raise KeyError(f"Must be a valid key, not {request_type}")

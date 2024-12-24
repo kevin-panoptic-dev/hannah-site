@@ -13,8 +13,8 @@ JSON = {"contents": [{"parts": [{"text": ""}]}]}
 HEADERS = {"Content-Type": "application/json"}
 
 
-def get_prompt(*, key: Literal["s", "r", "c"]) -> str:
-    if key not in ["s", "r", "c"]:
-        raise KeyError(f"Key must be `s`, `r`, or `c`, not {key}")
+def get_prompt(*, key: Literal["s", "r", "c", "t"]) -> str:
+    if key not in ["s", "r", "c", "t"]:
+        raise KeyError(f"Key must be `s`, `r`, `t` or `c`, not {key}")
 
     return PROMPTS[key]
