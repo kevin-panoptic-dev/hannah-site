@@ -29,7 +29,7 @@ class CreateGalleryCard(APIView):
         serializer.save()
         return Response(
             {"detail": "Gallery Card is successfully created."},
-            status=status.HTTP_200_OK,
+            status=status.HTTP_201_CREATED,
         )
 
 
@@ -81,7 +81,7 @@ class DeleteGalleryCard(APIView):
             danger_model.delete()
             return Response(
                 {"detail": "Gallery Card delete successfully."},
-                status=status.HTTP_200_OK,
+                status=status.HTTP_202_ACCEPTED,
             )
         else:
             return Response(

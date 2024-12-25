@@ -45,7 +45,7 @@ class CreateGPAModel(APIView):
             )
         serializer.save()
         serializer.save(user=self.request.user)
-        return Response({"detail": "GPA data added"}, status=status.HTTP_200_OK)
+        return Response({"detail": "GPA data added"}, status=status.HTTP_201_CREATED)
 
 
 class GetGPAModel(APIView):
@@ -85,7 +85,9 @@ class DeleteGPAModel(APIView):
             model_id = serializer.validated_data["model_id"]  # type: ignore
             object = self.get_object(model_id)
             object.delete()
-            return Response({"detail": "GPA data deleted"}, status=status.HTTP_200_OK)
+            return Response(
+                {"detail": "GPA data deleted"}, status=status.HTTP_202_ACCEPTED
+            )
         else:
             return Response(
                 {"detail": f"Invalid serializer: {serializer.errors}"},
@@ -106,7 +108,7 @@ class CreateExtracurricularModel(APIView):
             serializer.save(user=self.request.user)
             return Response(
                 {"detail": "Successfully create a Extracurricular Model"},
-                status=status.HTTP_200_OK,
+                status=status.HTTP_201_CREATED,
             )
         else:
             return Response(
@@ -134,7 +136,8 @@ class DeleteExtracurricularModel(APIView):
             object = self.get_object(model_id)
             object.delete()
             return Response(
-                {"detail": "Extracurricular data deleted"}, status=status.HTTP_200_OK
+                {"detail": "Extracurricular data deleted"},
+                status=status.HTTP_202_ACCEPTED,
             )
         else:
             return Response(
@@ -189,7 +192,7 @@ class CreateCourseModel(APIView):
             serializer.save(user=self.request.user)
             return Response(
                 {"detail": "Successfully create a Course Model"},
-                status=status.HTTP_200_OK,
+                status=status.HTTP_201_CREATED,
             )
         else:
             return Response(
@@ -218,7 +221,7 @@ class DeleteCourseModel(APIView):
             danger_course.is_deleted = True
             danger_course.save()
             return Response(
-                {"detail": "Course data deleted"}, status=status.HTTP_200_OK
+                {"detail": "Course data deleted"}, status=status.HTTP_202_ACCEPTED
             )
         else:
             return Response(
@@ -284,6 +287,7 @@ class GetCourseModel(APIView):
         for model_object in courses:
             json_object_list.append(
                 {
+                    "id": model_object.id,
                     "date": model_object.date,
                     "reason": model_object.reason,
                     "course_name": model_object.course_name,

@@ -11,9 +11,10 @@ urlpatterns = [
     path("auth-rest/", include("rest_framework.urls")),
     path("auth/", include("authentication.urls")),
     path("ai/", include("machine_learning.urls")),
-    path("report/", include("feedback.urls")),
+    path("comment/", include("feedback.urls")),
     path("upload/", include("administration.urls")),
     path("gallery/", include("gallery.urls")),
+    path("forum/", include("forum.urls")),
 ]
 
 if settings.DEBUG:

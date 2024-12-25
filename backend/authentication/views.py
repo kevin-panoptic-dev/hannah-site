@@ -99,7 +99,7 @@ class DeleteSiteUser(APIView):
                 danger_user.delete()
                 return Response(
                     {"detail": "site user delete successfully"},
-                    status=status.HTTP_200_OK,
+                    status=status.HTTP_202_ACCEPTED,
                 )
         else:
             return Response(
@@ -131,7 +131,7 @@ class LogoutSiteUser(APIView):
 
                 return Response(
                     {"detail": "Successfully logged out."},
-                    status=status.HTTP_205_RESET_CONTENT,
+                    status=status.HTTP_200_OK,
                 )
 
             except Exception as e:
