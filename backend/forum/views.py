@@ -28,8 +28,8 @@ class CreateForumMessage(APIView):
             )
 
     def perform_create(self, serializer):
-        serializer.save()
         serializer.save(author=self.request.user)
+        serializer.save()
         return Response(
             {"detail": "Forum message created."}, status=status.HTTP_201_CREATED
         )
@@ -45,6 +45,7 @@ class GetForumMessage(APIView):
     def get(self, request):
         messages = list(self.get_queryset())
         json_object_list = self.object_to_object(messages)
+        # prismelt(type(json_object_list[0]).__name__, color=(255, 0, 0))
         return Response({"detail": json_object_list}, status=status.HTTP_200_OK)
 
     def object_to_object(self, messages: list):
@@ -55,7 +56,7 @@ class GetForumMessage(APIView):
                     "id": model_object.id,
                     "date": model_object.date,
                     "message": model_object.message,
-                    "author": model_object.author,
+                    "author": model_object.author.username,
                 }
             )
         return json_object_list
@@ -79,8 +80,8 @@ class DeleteForumMessage(APIView):
 
     def post(self, request):
         serializer = DeleteForumMessageSerializer(data=request.data)
-        message_id = serializer.validated_data["message_id"]  # type: ignore
         if serializer.is_valid():
+            message_id = serializer.validated_data["message_id"]  # type: ignore
             danger_message = self.get_message(message_id)
             if danger_message is None:
                 return Response(
@@ -90,7 +91,7 @@ class DeleteForumMessage(APIView):
             danger_message.delete()
             return Response(
                 {"detail": "Message successfully deleted."},
-                status=status.HTTP_202_ACCEPTED,
+                status=status.HTTP_200_OK,
             )
         else:
             return Response(

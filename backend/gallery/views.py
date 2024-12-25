@@ -81,7 +81,7 @@ class DeleteGalleryCard(APIView):
             danger_model.delete()
             return Response(
                 {"detail": "Gallery Card delete successfully."},
-                status=status.HTTP_202_ACCEPTED,
+                status=status.HTTP_200_OK,
             )
         else:
             return Response(

@@ -85,9 +85,7 @@ class DeleteGPAModel(APIView):
             model_id = serializer.validated_data["model_id"]  # type: ignore
             object = self.get_object(model_id)
             object.delete()
-            return Response(
-                {"detail": "GPA data deleted"}, status=status.HTTP_202_ACCEPTED
-            )
+            return Response({"detail": "GPA data deleted"}, status=status.HTTP_200_OK)
         else:
             return Response(
                 {"detail": f"Invalid serializer: {serializer.errors}"},
@@ -137,7 +135,7 @@ class DeleteExtracurricularModel(APIView):
             object.delete()
             return Response(
                 {"detail": "Extracurricular data deleted"},
-                status=status.HTTP_202_ACCEPTED,
+                status=status.HTTP_200_OK,
             )
         else:
             return Response(
@@ -221,7 +219,7 @@ class DeleteCourseModel(APIView):
             danger_course.is_deleted = True
             danger_course.save()
             return Response(
-                {"detail": "Course data deleted"}, status=status.HTTP_202_ACCEPTED
+                {"detail": "Course data deleted"}, status=status.HTTP_200_OK
             )
         else:
             return Response(
