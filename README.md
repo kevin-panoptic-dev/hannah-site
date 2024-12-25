@@ -36,11 +36,16 @@ External several error
 Hard to find
 Activity limitation, need $ or failure
 
-## Some functions are never tested
+## media url <- WARN
 
 ```plain text
-/backend/machine_learning/views.py
+/backend/media/extracurricular
 ```
 
-Delete Gemini Model
-lazy...
+Does not appear in the expected directory
+
+```plain text
+/media/extracurricular
+```
+
+May cause path import issue

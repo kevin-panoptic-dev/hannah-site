@@ -73,7 +73,7 @@ class DeleteSiteUser(APIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return SiteUser.objects.all()
+        return SiteUser.objects.filter(user=self.request.user)
 
     def get_object(self, user_id: int):
         try:

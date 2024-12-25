@@ -165,7 +165,7 @@ class DeleteGeminiModel(APIView):
             danger_data = self.get_data(data_id=data_id)
             danger_data.delete()
             return Response(
-                {"detail": "data user delete successfully"},
+                {"detail": "data delete successfully"},
                 status=status.HTTP_200_OK,
             )
 

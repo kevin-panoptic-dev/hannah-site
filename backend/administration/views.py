@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import FileResponse
 from .models import GPAModel, CourseModel, ExtracurricularModel
 from .serializer import (
     GPAModelSerializer,
@@ -16,6 +17,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 import numpy as np
+from pymodule.utility import prismelt
 
 
 class CreateGPAModel(APIView):
@@ -55,9 +57,9 @@ class GetGPAModel(APIView):
     def get(self, request):
         try:
             buffer, image_type = create_gpa_graph()
-            return Response(
-                buffer.getvalue(), content_type=image_type, status=status.HTTP_200_OK
-            )
+            response = FileResponse(buffer, content_type=image_type)
+            response["Content-Disposition"] = 'inline; filename="gpa_graph.png"'
+            return response
         except Exception as e:
             return Response(
                 {"detail": f"An error occurs: {e}"},
@@ -66,7 +68,7 @@ class GetGPAModel(APIView):
 
 
 class DeleteGPAModel(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return GPAModel.objects.all()
@@ -92,7 +94,7 @@ class DeleteGPAModel(APIView):
 
 
 class CreateExtracurricularModel(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         return ExtracurricularModel.objects.all()
@@ -114,7 +116,7 @@ class CreateExtracurricularModel(APIView):
 
 
 class DeleteExtracurricularModel(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         return ExtracurricularModel.objects.all()
@@ -164,8 +166,7 @@ class GetExtracurricularModel(APIView):
                         "reason": data.reason,
                     }
                 )
-
-            return Response({"detail": objects}, status=status.HTTP_200_OK)
+            return Response({"detail": response_data}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(
                 {
@@ -250,18 +251,19 @@ class GetCourseModel(APIView):
 
     def perform_get(self, serializer):
         course_type = serializer.validated_data["course_type"]
-        number_required = serializer.validated_date["number_required"]
+        number_required = serializer.validated_data["number_required"]
         acceptable_course = CourseModel.objects.filter(course_type=course_type)
         returned_courses = []
         enough = True
 
-        number_of_instance = acceptable_course.filter(is_deleted=False).values_list(
-            "id", flat=True
-        )
-        bad_numbers = acceptable_course.filter(is_deleted=True).values_list(
-            "id", flat=True
-        )
+        number_of_instance = [
+            course.id for course in acceptable_course if not course.is_deleted  # type: ignore
+        ]
+        bad_numbers = [
+            course.id for course in acceptable_course if course.is_deleted  # type: ignore
+        ]
         pool = list(set(number_of_instance) - set(bad_numbers))
+
         if len(pool) <= number_required:
             data_used = pool
             enough = False
@@ -270,9 +272,21 @@ class GetCourseModel(APIView):
 
         for integer in data_used:
             returned_courses.append(acceptable_course.get(id=integer))
-
+        json_object_list = self.object_to_object(returned_courses)
         if enough:
-            return Response({"detail": returned_courses}, status=status.HTTP_200_OK)
+            return Response({"detail": json_object_list}, status=status.HTTP_200_OK)
         return Response(
-            {"detail": returned_courses}, status=status.HTTP_206_PARTIAL_CONTENT
+            {"detail": json_object_list}, status=status.HTTP_206_PARTIAL_CONTENT
         )
+
+    def object_to_object(self, courses: list):
+        json_object_list = []
+        for model_object in courses:
+            json_object_list.append(
+                {
+                    "date": model_object.date,
+                    "reason": model_object.reason,
+                    "course_name": model_object.course_name,
+                }
+            )
+        return json_object_list

@@ -3,6 +3,9 @@ from io import BytesIO
 from .models import GPAModel
 import pandas as pd
 from datetime import datetime
+import matplotlib
+
+matplotlib.use("Agg")  # avoid create a new thread outside main thread
 
 
 def string_to_date(date_string: str):

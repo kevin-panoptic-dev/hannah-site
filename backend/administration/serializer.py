@@ -11,6 +11,11 @@ class GPAModelSerializer(serializers.ModelSerializer):
 class DeleteGPAModelSerializer(serializers.ModelSerializer):
     model_id = serializers.IntegerField(required=True)
 
+    # confusing, but a meta class is needed (for resolving assertion error)
+    class Meta:
+        model = GPAModel
+        fields = ["model_id"]
+
 
 class CourseModelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +30,10 @@ class ObtainCourseModelSerializer(serializers.Serializer):
 
 class DeleteCourseModelSerializer(serializers.Serializer):
     model_id = serializers.IntegerField(required=True)
+
+    class Meta:
+        model = CourseModel
+        fields = ["model_id"]
 
 
 class ExtracurricularModelSerializer(serializers.ModelSerializer):
@@ -43,3 +52,7 @@ class ExtracurricularModelSerializer(serializers.ModelSerializer):
 
 class DeleteExtracurricularModelSerializer(serializers.Serializer):
     model_id = serializers.IntegerField(required=True)
+
+    class Meta:
+        model = ExtracurricularModel
+        fields = ["model_id"]
