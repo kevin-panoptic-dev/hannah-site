@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "machine_learning",
     "feedback",
     "administration",
+    "gallery",
 ]
 
 MIDDLEWARE = [

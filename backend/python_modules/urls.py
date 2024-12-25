@@ -13,6 +13,7 @@ urlpatterns = [
     path("ai/", include("machine_learning.urls")),
     path("report/", include("feedback.urls")),
     path("upload/", include("administration.urls")),
+    path("gallery/", include("gallery.urls")),
 ]
 
 if settings.DEBUG:
