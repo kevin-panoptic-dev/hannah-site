@@ -9,3 +9,7 @@ sqlparse
 psycopg2-binary
 python-dotenv
 httpx
+matplotlib
+pandas
+io
+numpy
