@@ -1,5 +1,9 @@
 # Issues
 
+## Hard to delete
+
+Model Delete view only accepts id deletion, which is impossible for non-coder to process
+
 ## Gemini does not work
 
 ```plain text
@@ -36,16 +40,6 @@ External several error
 Hard to find
 Activity limitation, need $ or failure
 
-## media url <- WARN
+## media url <- PSEUDO RESOLVED
 
-```plain text
-/backend/media/extracurricular
-```
-
-Does not appear in the expected directory
-
-```plain text
-/media/extracurricular
-```
-
-May cause path import issue
+The path seems to be correct, but via tweaking system settings

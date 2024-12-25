@@ -118,7 +118,10 @@ STATIC_URL = "static/"
 
 MEDIA_URL = "media/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# trick the django to load the file to the root directory
+PSEUDO_BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+MEDIA_ROOT = os.path.join(PSEUDO_BASE_DIR, MEDIA_URL)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
