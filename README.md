@@ -28,14 +28,10 @@ Need at least three input for each type, or HTTP_206 Response
 /backend/donation
 ```
 
-Response needed
+Response needed  
 External several error
 
 ## Deployment issue <- ERROR
-
-```plain text
-/
-```
 
 Hard to find
 Activity limitation, need $ or failure
