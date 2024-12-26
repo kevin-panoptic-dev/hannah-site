@@ -44,7 +44,6 @@ class CreateGPAModel(APIView):
                 status=status.HTTP_406_NOT_ACCEPTABLE,
             )
         serializer.save()
-        serializer.save(user=self.request.user)
         return Response({"detail": "GPA data added"}, status=status.HTTP_201_CREATED)
 
 
@@ -103,7 +102,6 @@ class CreateExtracurricularModel(APIView):
         serializer = ExtracurricularModelSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            serializer.save(user=self.request.user)
             return Response(
                 {"detail": "Successfully create a Extracurricular Model"},
                 status=status.HTTP_201_CREATED,
@@ -187,7 +185,6 @@ class CreateCourseModel(APIView):
         serializer = CourseModelSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            serializer.save(user=self.request.user)
             return Response(
                 {"detail": "Successfully create a Course Model"},
                 status=status.HTTP_201_CREATED,
