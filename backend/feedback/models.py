@@ -1,5 +1,6 @@
 from django.db import models
 from .constants import PRAISE_TYPE, LENGTH_TYPE
+from authentication.models import SiteUser
 
 
 class FeedbackModel(models.Model):
@@ -11,3 +12,6 @@ class FeedbackModel(models.Model):
         max_length=1, choices=LENGTH_TYPE, blank=True, null=True
     )
     content = models.TextField()
+    author = models.ForeignKey(
+        SiteUser, on_delete=models.CASCADE, blank=True, null=True
+    )

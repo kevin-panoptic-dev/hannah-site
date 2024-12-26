@@ -52,12 +52,12 @@ class CreateFeedbackModel(APIView):
         pseudo_serializer = self.serializer_converter(serializer)
         pseudo_http_response = CreateGeminiModel.fetch(pseudo_serializer)
         if pseudo_http_response[0] == status.HTTP_201_CREATED:
-            serializer.save()
             serializer.save(
-                user=self.request.user,
+                author=self.request.user,
                 length_type=length_type,
                 praise_type=pseudo_http_response[1]["detail"][0].lower(),
             )
+            serializer.save()
             return Response(
                 {"detail": "feedback processed successfully."},
                 status=pseudo_http_response[0],
