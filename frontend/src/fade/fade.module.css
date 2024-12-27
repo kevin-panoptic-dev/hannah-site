@@ -1,0 +1,10 @@
+.fadeWrapper {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 2s ease, transform 2s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

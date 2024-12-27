@@ -3,11 +3,11 @@ import styles from "./navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, FormEvent, useRef } from "react";
 
-interface navbarType {
+interface routeType {
     route: string;
 }
 
-function NavBar({ route }: navbarType) {
+function NavBar({ route }: routeType) {
     const navigate = useNavigate();
     const redirect = (place: string): void => {
         navigate(`/${place}`);
