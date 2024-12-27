@@ -2,6 +2,8 @@ import api from "../api/api";
 import styles from "./navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, FormEvent, useRef } from "react";
+import { useErrorContext } from "../context/error";
+import { useSearchContext } from "../context/search";
 
 interface routeType {
     route: string;
@@ -12,6 +14,8 @@ function NavBar({ route }: routeType) {
     const redirect = (place: string): void => {
         navigate(`/${place}`);
     };
+    const { updateErrorMessage } = useErrorContext();
+    const { searchWith } = useSearchContext();
     /*
     hoveredText === null -> nothing is hovered, set black
     hoveredText !== null && hoveredText !== start char -> not it, set gray
@@ -31,7 +35,8 @@ function NavBar({ route }: routeType) {
             alert("Please enter a valid search input.");
             return;
         }
-        navigate("/ai/search", { state: userInput.trim() });
+        searchWith(userInput.trim());
+        redirect("ai/search");
     };
 
     const handleMouseIn = (firstCharacter: string): void => {
@@ -84,7 +89,23 @@ function NavBar({ route }: routeType) {
                     setGpaGraphUrl(url);
                 }
             } catch (error) {
-                alert(error);
+                if (error instanceof Error) {
+                    if (error.message === "An unknown error occurs.") {
+                        updateErrorMessage(
+                            "f;An unknown error occurs when fetching GPA graph data."
+                        );
+                        redirect("error");
+                        return;
+                    } else {
+                        // user will never know there was a GPA graph hidden inside the navbar.
+                        return;
+                    }
+                } else {
+                    updateErrorMessage(
+                        "f;An unknown error occurs when handling GPA graph error: `error` is not an instance of Error."
+                    );
+                    redirect("error");
+                }
             } finally {
                 setIsLoading(false);
             }
