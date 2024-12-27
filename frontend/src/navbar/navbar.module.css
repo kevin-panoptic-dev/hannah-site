@@ -192,6 +192,100 @@
                 color: #616161;
             }
         }
+        .schoolDropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #080808;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+
+            &.show {
+                visibility: visible;
+                opacity: 0.55;
+                transition: opacity 0.5s ease;
+                overflow: hidden;
+            }
+
+            .schoolDropdownContent {
+                position: absolute;
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                padding-top: 20px;
+                align-items: top;
+                justify-content: left;
+
+                .schoolAlignWrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: top;
+                    padding-left: 40px;
+
+                    .clubContainer {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+
+                        .clubHeader {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: left;
+                            color: #b4b4b4;
+                            font-weight: 400;
+                            font-size: 15px;
+                            user-select: none;
+                        }
+                        .clubContent {
+                            font-weight: 300;
+                            font-size: 15px;
+                            user-select: none;
+
+                            &:hover {
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+
+                .eventContainer {
+                    flex: 1.3;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: top;
+                    padding-left: 120px;
+                    padding-right: 120px;
+
+                    .eventHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+                    .eventContent {
+                        font-weight: 300;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
         .beyond {
             font-weight: 300;
             font-size: 15px;
@@ -206,6 +300,100 @@
                 color: #616161;
             }
         }
+        .beyondDropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #080808;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+
+            &.show {
+                visibility: visible;
+                opacity: 0.55;
+                transition: opacity 0.5s ease;
+                overflow: hidden;
+            }
+
+            .beyondDropdownContent {
+                position: absolute;
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                padding-top: 20px;
+                align-items: top;
+                justify-content: left;
+
+                .beyondAlignWrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: top;
+                    padding-left: 40px;
+
+                    .hobbyContainer {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+
+                        .hobbyHeader {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: left;
+                            color: #b4b4b4;
+                            font-weight: 400;
+                            font-size: 15px;
+                            user-select: none;
+                        }
+                        .hobbyContent {
+                            font-weight: 300;
+                            font-size: 15px;
+                            user-select: none;
+
+                            &:hover {
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+
+                .projectContainer {
+                    flex: 1.3;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: top;
+                    padding-left: 120px;
+                    padding-right: 120px;
+
+                    .projectHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+                    .projectContent {
+                        font-weight: 300;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
         .contact {
             font-weight: 300;
             font-size: 15px;
@@ -218,6 +406,100 @@
 
             &.togray {
                 color: #616161;
+            }
+        }
+    }
+    .contactDropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #080808;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+
+        &.show {
+            visibility: visible;
+            opacity: 0.55;
+            transition: opacity 0.5s ease;
+            overflow: hidden;
+        }
+
+        .contactDropdownContent {
+            position: absolute;
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            padding-top: 20px;
+            align-items: top;
+            justify-content: left;
+
+            .contactAlignWrapper {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: top;
+                padding-left: 40px;
+
+                .socialContainer {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+
+                    .socialHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+                    .socialContent {
+                        font-weight: 300;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .messageContainer {
+                flex: 1.3;
+                display: flex;
+                flex-direction: column;
+                align-items: left;
+                justify-content: top;
+                padding-left: 120px;
+                padding-right: 120px;
+
+                .messageHeader {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    color: #b4b4b4;
+                    font-weight: 400;
+                    font-size: 15px;
+                    user-select: none;
+                }
+                .messageContent {
+                    font-weight: 300;
+                    font-size: 15px;
+                    user-select: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }

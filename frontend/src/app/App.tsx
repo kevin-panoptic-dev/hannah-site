@@ -6,9 +6,11 @@ function App() {
     return (
         <>
             <NavBar route="upload/gpa/get/"></NavBar>
-            <Routes>
-                <Route></Route>
-            </Routes>
+            <main id="main-tag">
+                <Routes>
+                    <Route></Route>
+                </Routes>
+            </main>
         </>
     );
 }
