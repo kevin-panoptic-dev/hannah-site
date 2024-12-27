@@ -1,0 +1,282 @@
+.container {
+    background-color: #080808;
+    color: #ffffff;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 8;
+    position: fixed;
+
+    .home {
+        border: none;
+        padding-left: 40px;
+        height: 100%;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .heading {
+            font-weight: 400;
+            font-size: 18px;
+            user-select: none;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .middle {
+        flex: 1.3;
+        border: none;
+        height: 100%;
+        padding-left: 120px;
+        padding-right: 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .academic {
+            font-weight: 300;
+            font-size: 15px;
+            user-select: none;
+            transition: color 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.togray {
+                color: #616161;
+            }
+        }
+
+        .academicDropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #080808;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+
+            &.show {
+                visibility: visible;
+                opacity: 0.55;
+                transition: opacity 0.5s ease;
+                overflow: hidden;
+            }
+
+            .academicDropdownContent {
+                position: absolute;
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                padding-top: 20px;
+                align-items: top;
+                justify-content: left;
+
+                .academicAlignWrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: top;
+                    padding-left: 40px;
+
+                    .testContainer {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+
+                        .testHeader {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: left;
+                            color: #b4b4b4;
+                            font-weight: 400;
+                            font-size: 15px;
+                            user-select: none;
+                        }
+                        .testContent {
+                            font-weight: 300;
+                            font-size: 15px;
+                            user-select: none;
+
+                            &:hover {
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                .courseContainer {
+                    flex: 1.3;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: top;
+                    padding-left: 120px;
+                    padding-right: 120px;
+
+                    .CourseHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+                    .CourseContent {
+                        font-weight: 300;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .gpaGraphContainer {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: top;
+                    padding-right: 80px;
+
+                    .gpaHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+
+                    .gpaGraph {
+                        width: 100%;
+                        height: auto;
+                        opacity: 1 !important;
+                        z-index: 9;
+                        border-radius: 10px;
+                    }
+                }
+            }
+        }
+
+        .school {
+            font-weight: 300;
+            font-size: 15px;
+            user-select: none;
+            transition: color 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.togray {
+                color: #616161;
+            }
+        }
+        .beyond {
+            font-weight: 300;
+            font-size: 15px;
+            user-select: none;
+            transition: color 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.togray {
+                color: #616161;
+            }
+        }
+        .contact {
+            font-weight: 300;
+            font-size: 15px;
+            user-select: none;
+            transition: color 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.togray {
+                color: #616161;
+            }
+        }
+    }
+
+    .search {
+        flex: 1;
+        border: none;
+        height: 100%;
+        padding-right: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        .searchIcon {
+            width: 20px;
+            height: 20px;
+
+            &:hover {
+                transform: scale(1.2);
+                transform-origin: center;
+                transition: transform 0.5s ease;
+            }
+        }
+    }
+
+    .searchDropdownContent {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #080808;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 10px;
+
+        &.show {
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+            overflow: hidden;
+        }
+
+        .searchInput {
+            border: none;
+            background-color: transparent;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+            font-size: 40px;
+            font-weight: 500;
+            width: 100%;
+            height: 100%;
+            border-style: hidden;
+            color: white;
+            outline: none;
+        }
+    }
+}

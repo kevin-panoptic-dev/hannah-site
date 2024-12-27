@@ -10,7 +10,7 @@ from .serializer import GalleryCardSerializer, DeleteGalleryCardSerializer
 
 
 class CreateGalleryCard(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         return GalleryCard.objects.all()
@@ -35,6 +35,7 @@ class CreateGalleryCard(APIView):
 
 class GetGalleryCard(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get_queryset(self):
         return GalleryCard.objects.all()
@@ -62,7 +63,7 @@ class GetGalleryCard(APIView):
 
 
 class DeleteGalleryCard(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         return GalleryCard.objects.all()

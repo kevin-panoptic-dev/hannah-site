@@ -27,6 +27,7 @@ class CreateSiteUser(generics.ListCreateAPIView):
 
 class LoginSiteUser(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get_queryset(self):
         return SiteUser.objects.all()
@@ -109,7 +110,8 @@ class DeleteSiteUser(APIView):
 
 
 class LogoutSiteUser(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get_queryset(self):
         return SiteUser.objects.all()

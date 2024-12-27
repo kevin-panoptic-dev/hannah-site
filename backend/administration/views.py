@@ -48,7 +48,8 @@ class CreateGPAModel(APIView):
 
 
 class GetGPAModel(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get_queryset(self):
         return GPAModel.objects.all()
@@ -67,7 +68,7 @@ class GetGPAModel(APIView):
 
 
 class DeleteGPAModel(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         return GPAModel.objects.all()
@@ -93,7 +94,7 @@ class DeleteGPAModel(APIView):
 
 
 class CreateExtracurricularModel(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         return ExtracurricularModel.objects.all()
@@ -114,7 +115,7 @@ class CreateExtracurricularModel(APIView):
 
 
 class DeleteExtracurricularModel(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         return ExtracurricularModel.objects.all()
@@ -144,6 +145,7 @@ class DeleteExtracurricularModel(APIView):
 
 class GetExtracurricularModel(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get_queryset(self):
         return ExtracurricularModel.objects.all()
@@ -227,6 +229,7 @@ class DeleteCourseModel(APIView):
 
 class GetCourseModel(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get_queryset(self):
         return CourseModel.objects.all()

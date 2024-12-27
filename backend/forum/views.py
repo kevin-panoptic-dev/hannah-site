@@ -37,6 +37,7 @@ class CreateForumMessage(APIView):
 
 class GetForumMessage(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get_queryset(self):
         thirty_days_ago = timezone.now() - timedelta(days=30)
