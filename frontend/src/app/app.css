@@ -1,17 +1,25 @@
+/*✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞
+z-index: 
+navbar has a default z-index of 2
+navbar contents should have a z-index of 3
+navbar words (interactive) should have a z-index of 4
+buttons should have a z-index of 5
+
+
+top: -1000px;
+css is the language of God, only he is able to resolve these random css styling.
+
+
+✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞*/
+
 body,
 header {
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-left: 0;
+    padding: 0;
+    margin: 0;
     font-family: "Roboto", serif;
     font-style: normal;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: #080808;
 }
 

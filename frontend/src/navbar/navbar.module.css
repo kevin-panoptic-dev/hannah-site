@@ -10,8 +10,8 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    z-index: 8;
     position: fixed;
+    z-index: 2;
 
     .home {
         border: none;
@@ -60,21 +60,23 @@
 
         .academicDropdown {
             position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #080808;
+            top: -1000px;
+            width: 0;
+            height: 0;
+            background-color: rgba(8, 8, 8, 0.5);
             opacity: 0;
             transition: opacity 0.5s ease;
-            z-index: 9;
 
             &.show {
                 visibility: visible;
-                opacity: 0.55;
+                opacity: 1;
                 transition: opacity 0.5s ease;
                 overflow: hidden;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: 100vw;
+                height: 100vh;
             }
 
             .academicDropdownContent {
@@ -202,21 +204,23 @@
         }
         .schoolDropdown {
             position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #080808;
+            top: -1000px;
+            width: 0;
+            height: 0;
+            background-color: rgba(8, 8, 8, 0.5);
             opacity: 0;
             transition: opacity 0.5s ease;
-            z-index: 9;
 
             &.show {
                 visibility: visible;
-                opacity: 0.55;
+                opacity: 1;
                 transition: opacity 0.5s ease;
                 overflow: hidden;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: 100vw;
+                height: 100vh;
             }
 
             .schoolDropdownContent {
@@ -311,21 +315,23 @@
         }
         .beyondDropdown {
             position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #080808;
+            top: -1000px;
+            width: 0;
+            height: 0;
+            background-color: rgba(8, 8, 8, 0.5);
             opacity: 0;
             transition: opacity 0.5s ease;
-            z-index: 9;
 
             &.show {
                 visibility: visible;
-                opacity: 0.55;
+                opacity: 1;
                 transition: opacity 0.5s ease;
                 overflow: hidden;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: 100vw;
+                height: 100vh;
             }
 
             .beyondDropdownContent {
@@ -421,21 +427,23 @@
     }
     .contactDropdown {
         position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: #080808;
+        top: -1000px;
+        width: 0;
+        height: 0;
+        background-color: rgba(8, 8, 8, 0.5);
         opacity: 0;
         transition: opacity 0.5s ease;
-        z-index: 9;
 
         &.show {
             visibility: visible;
-            opacity: 0.55;
+            opacity: 1;
             transition: opacity 0.5s ease;
             overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            top: 100%;
+            left: 0;
+            right: 0;
         }
 
         .contactDropdownContent {
@@ -543,9 +551,9 @@
         top: 100%;
         left: 0;
         right: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: #080808;
+        width: 0px;
+        height: 0px;
+        background-color: rgba(8, 8, 8, 0.9);
         opacity: 0;
         transition: opacity 0.3s ease;
         padding-left: 40px;
@@ -553,9 +561,11 @@
         padding-top: 10px;
 
         &.show {
-            opacity: 0.9;
+            opacity: 1;
             transition: opacity 0.3s ease;
             overflow: hidden;
+            width: 100vw;
+            height: 100vh;
         }
 
         .searchInput {
