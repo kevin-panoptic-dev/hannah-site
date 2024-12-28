@@ -57,7 +57,7 @@ function Error() {
     }, [errorMessage]);
 
     return (
-        <div className={styles.container}>
+        <div className={styles.change_container}>
             <div className={styles.alignWrapper}>
                 <p className={styles.title}>{errorMessage?.split(";")[0]}</p>
                 <p className={styles.content}>{contentText}</p>

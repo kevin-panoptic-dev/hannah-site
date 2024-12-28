@@ -141,8 +141,16 @@ function NavBar({ route }: routeType) {
             if (mainTag) {
                 mainTag.style.transition = "transform 0.5s ease";
                 mainTag.style.transform = "scale(0.9)";
-                // mainTag.style.boxShadow =
-                //     "0 0 150px 50px rgba(160, 160, 160, 0.6), 0 0 250px rgba(160, 160, 160, 0.4)";
+            }
+            const containers = document.querySelectorAll<HTMLElement>("[class*='change_']");
+            if (containers) {
+                containers.forEach((container) => {
+                    container.style.boxShadow =
+                        "inset -100px -100px 50px rgba(8, 8, 8, 0.9), inset -100px 100px 50px rgba(8, 8, 8, 0.9), inset 100px -100px 50px rgba(8, 8, 8, 0.9), inset 100px 100px 50px rgba(8, 8, 8, 0.9)";
+                    container.style.opacity = "0.75";
+                });
+            } else {
+                throw new Error("Unable to perform transformation.");
             }
         };
         const handleZoomBack = () => {
@@ -151,6 +159,15 @@ function NavBar({ route }: routeType) {
                 // console.log("perform some transformation");
                 mainTag.style.transition = "transform 0.3s ease";
                 mainTag.style.transform = "scale(1)";
+            } else {
+                throw new Error("Unable to perform transformation.");
+            }
+            const containers = document.querySelectorAll<HTMLElement>("[class*='change_']");
+            if (containers) {
+                containers.forEach((container) => {
+                    container.style.boxShadow = "none";
+                    container.style.opacity = "1";
+                });
             } else {
                 throw new Error("Unable to perform transformation.");
             }
