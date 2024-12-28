@@ -11,7 +11,7 @@ interface routeType {
 
 function NavBar({ route }: routeType) {
     const navigate = useNavigate();
-    const redirect = (place: string): void => {
+    const redirect = (place: string) => {
         navigate(`/${place}`);
     };
     const { updateErrorMessage } = useErrorContext();
@@ -141,6 +141,8 @@ function NavBar({ route }: routeType) {
             if (mainTag) {
                 mainTag.style.transition = "transform 0.5s ease";
                 mainTag.style.transform = "scale(0.9)";
+                // mainTag.style.boxShadow =
+                //     "0 0 150px 50px rgba(160, 160, 160, 0.6), 0 0 250px rgba(160, 160, 160, 0.4)";
             }
         };
         const handleZoomBack = () => {

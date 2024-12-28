@@ -68,6 +68,7 @@
             background-color: #080808;
             opacity: 0;
             transition: opacity 0.5s ease;
+            z-index: 9;
 
             &.show {
                 visibility: visible;
@@ -107,6 +108,10 @@
                             font-weight: 400;
                             font-size: 15px;
                             user-select: none;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
                         }
                         .testContent {
                             font-weight: 300;
@@ -137,6 +142,10 @@
                         font-weight: 400;
                         font-size: 15px;
                         user-select: none;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
                     }
                     .CourseContent {
                         font-weight: 300;
@@ -170,8 +179,7 @@
                     .gpaGraph {
                         width: 100%;
                         height: auto;
-                        opacity: 1 !important;
-                        z-index: 9;
+                        opacity: 1;
                         border-radius: 10px;
                     }
                 }
@@ -202,6 +210,7 @@
             background-color: #080808;
             opacity: 0;
             transition: opacity 0.5s ease;
+            z-index: 9;
 
             &.show {
                 visibility: visible;
@@ -310,6 +319,7 @@
             background-color: #080808;
             opacity: 0;
             transition: opacity 0.5s ease;
+            z-index: 9;
 
             &.show {
                 visibility: visible;
@@ -419,6 +429,7 @@
         background-color: #080808;
         opacity: 0;
         transition: opacity 0.5s ease;
+        z-index: 9;
 
         &.show {
             visibility: visible;
@@ -519,6 +530,7 @@
             height: 20px;
 
             &:hover {
+                cursor: pointer;
                 transform: scale(1.2);
                 transform-origin: center;
                 transition: transform 0.5s ease;
