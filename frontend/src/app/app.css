@@ -1,9 +1,5 @@
 /*✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞✞
-z-index: 
-navbar has a default z-index of 2
-navbar contents should have a z-index of 3
-navbar words (interactive) should have a z-index of 4
-buttons should have a z-index of 5
+never use opacity, using rgba instead
 
 
 top: -1000px;
