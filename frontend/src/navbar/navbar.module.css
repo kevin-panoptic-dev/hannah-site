@@ -217,7 +217,7 @@
             &.show {
                 visibility: visible;
                 opacity: 1;
-                transform: translateY(-100px);
+                transform: translateY(0px);
                 overflow: hidden;
                 top: 100%;
                 left: 0;

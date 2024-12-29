@@ -25,11 +25,11 @@ def create_gpa_graph():
     )
 
     plt.figure(figsize=(20, 12))
-    plt.grid(True)
+    plt.grid(False)
     plt.title("My GPA")
     plt.xlabel("Date")
     plt.ylabel("GPA")
-    plt.plot(df.index, df["gpa"], marker="o", linestyle="--", color="red")
+    plt.plot(df.index, df["gpa"], marker="o", linestyle="-", color="red")
     plt.tight_layout()
 
     buffer = BytesIO()
