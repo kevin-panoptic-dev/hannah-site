@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import NavBar from "../navbar/Navbar";
 import "./app.css";
-import { ErrorProvider } from "../context/error";
-import { SearchProvider } from "../context/search";
+import { ErrorProvider } from "../components/context/error";
+import { SearchProvider } from "../components/context/search";
 import Error from "../pages/error/Error";
 
 function App() {

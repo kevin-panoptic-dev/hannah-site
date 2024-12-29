@@ -2,8 +2,8 @@ import api from "../api/api";
 import styles from "./navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, FormEvent, useRef } from "react";
-import { useErrorContext } from "../context/error";
-import { useSearchContext } from "../context/search";
+import { useErrorContext } from "../components/context/error";
+import { useSearchContext } from "../components/context/search";
 
 interface routeType {
     route: string;

@@ -1,4 +1,4 @@
-import { useErrorContext } from "../../context/error";
+import { useErrorContext } from "../../components/context/error";
 import { useState, useEffect } from "react";
 import styles from "./error.module.css";
 import { useNavigate } from "react-router-dom";
