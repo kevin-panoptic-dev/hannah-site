@@ -147,7 +147,8 @@ function NavBar({ route }: routeType) {
                 containers.forEach((container) => {
                     container.style.boxShadow =
                         "inset -100px -100px 50px rgba(8, 8, 8, 0.9), inset -100px 100px 50px rgba(8, 8, 8, 0.9), inset 100px -100px 50px rgba(8, 8, 8, 0.9), inset 100px 100px 50px rgba(8, 8, 8, 0.9)";
-                    container.style.opacity = "0.75";
+                    container.style.filter = "blur(10px) brightness(0.8) contrast(0.9)";
+                    container.style.transform = "translateY(50px)";
                 });
             } else {
                 throw new Error("Unable to perform transformation.");
@@ -167,6 +168,8 @@ function NavBar({ route }: routeType) {
                 containers.forEach((container) => {
                     container.style.boxShadow = "none";
                     container.style.opacity = "1";
+                    container.style.transform = "translateY(0px)";
+                    container.style.filter = "none";
                 });
             } else {
                 throw new Error("Unable to perform transformation.");
