@@ -5,7 +5,7 @@ interface childrenType {
 }
 
 interface searchContextType {
-    message: string | null;
+    message: string;
     searchWith: (message: string) => void;
 }
 
@@ -21,7 +21,7 @@ const useSearchContext = () => {
 };
 
 function SearchProvider({ children }: childrenType) {
-    const [message, setMessage] = useState<string | null>(null);
+    const [message, setMessage] = useState<string>("");
 
     const searchWith = (message: string) => setMessage(message);
 

@@ -1,15 +1,14 @@
-import api from "../api/api";
+import api from "../../utilities/api/api";
 import styles from "./navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, FormEvent, useRef } from "react";
-import { useErrorContext } from "../components/context/error";
-import { useSearchContext } from "../components/context/search";
+import { useErrorContext } from "../context/error";
+import { useSearchContext } from "../context/search";
+import LoadingIndicator from "../../pages/loading/loading";
+import { GET_GRAPH_PATH } from "../../utilities/constants";
 
-interface routeType {
-    route: string;
-}
-
-function NavBar({ route }: routeType) {
+function NavBar() {
+    const route = GET_GRAPH_PATH;
     const navigate = useNavigate();
     const redirect = (place: string) => {
         navigate(`/${place}`);
@@ -183,7 +182,7 @@ function NavBar({ route }: routeType) {
     }, [shouldDisableScroll]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <LoadingIndicator message="wait for a moment please..." />;
     } else {
         return (
             <nav>

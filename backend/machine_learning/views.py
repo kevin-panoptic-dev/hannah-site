@@ -11,7 +11,8 @@ import asyncio
 
 
 class CreateGeminiModel(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get_queryset(self):
         user = self.request.user

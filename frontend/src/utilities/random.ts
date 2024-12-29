@@ -5,7 +5,7 @@
  * @returns Array of random percentage numbers
  * @throws {Error} If count is negative or not a number
  */
-function generatePercentages(count: number): number[] {
+function generatePercentages(count: number): string[] {
     if (!Number.isInteger(count) || count < 0) {
         throw new Error("Count must be a non-negative integer");
     }
@@ -15,7 +15,7 @@ function generatePercentages(count: number): number[] {
 
     return Array.from({ length: count }, () => {
         // Generate a number between 50 and 90 with one decimal place
-        return Number((MIN_PERCENTAGE + Math.random() * RANGE).toFixed(1));
+        return Number((MIN_PERCENTAGE + Math.random() * RANGE).toFixed(1)).toString();
     });
 }
 
