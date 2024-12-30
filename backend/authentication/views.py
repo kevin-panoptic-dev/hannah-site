@@ -48,6 +48,15 @@ class LoginSiteUser(APIView):
                 refresh_token["user_id"] = user.id  # type: ignore
                 access_token = refresh_token.access_token  # type: ignore
                 user_type = user.user_type  # type: ignore
+                if user_type == "d":
+                    refresh_token["is_donator"] = True
+                else:
+                    refresh_token["is_donator"] = False
+
+                if user.is_staff:
+                    refresh_token["is_admin"] = True
+                else:
+                    refresh_token["is_admin"] = False
 
                 return Response(
                     {
