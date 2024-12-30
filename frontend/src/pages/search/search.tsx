@@ -1,5 +1,4 @@
 import styles from "./search.module.css";
-import api from "../../utilities/api/api";
 import match from "../../utilities/match";
 import { generateRandomDates, generatePercentages } from "../../utilities/random";
 import { chatWithGemini } from "../../utilities/gemini";
@@ -50,7 +49,7 @@ function Search() {
 
     const handleSubmit = async () => {
         if (userInput === undefined) {
-            updateErrorMessage(`f:Used userInput must not be undefined, must be string.`);
+            updateErrorMessage(`f;Used userInput must not be undefined, must be string.`);
             toErrorPage();
         } else {
             try {
@@ -65,7 +64,7 @@ function Search() {
                     provideSearchResult();
                     if (relatedContent === undefined) {
                         updateErrorMessage(
-                            `f:Related Content must not be undefined after provideSearchResult.`
+                            `f;Related Content must not be undefined after provideSearchResult.`
                         );
                         toErrorPage();
                     } else if (relatedContent.length < 3) {
@@ -83,7 +82,7 @@ function Search() {
                     setResponse(responseArray[1]);
                 }
             } catch (error) {
-                updateErrorMessage(`b:${error}`);
+                updateErrorMessage(`b;${error}`);
                 toErrorPage();
             } finally {
                 setIsLoading(false);
@@ -93,12 +92,17 @@ function Search() {
 
     useEffect(() => {
         if (userInput === undefined) {
-            setUserInput(message);
-            searchWith("");
-            handleSubmit();
+            if (userInput) {
+                setUserInput(message);
+                searchWith("");
+                handleSubmit();
+            } else {
+                setUserInput("");
+            }
         } else {
-            updateErrorMessage(`f:Initial userInput should be undefined, not ${userInput}.`);
-            toErrorPage();
+            setUserInput("");
+            // updateErrorMessage(`f;Initial userInput should be undefined, not ${userInput}.`);
+            // toErrorPage();
         }
     }, []);
 
@@ -107,53 +111,8 @@ function Search() {
     } else {
         return (
             <div className={styles.change_container}>
-                <div className={styles.result_section}>
-                    <div className={styles.search_stats}>
-                        <span className={styles.search_query}>Search: {userInput}</span>
-                        {thinkingTime > 0 && (
-                            <span className={styles.response_time}>
-                                Response time: {thinkingTime.toFixed(2)}s
-                            </span>
-                        )}
-                    </div>
-
-                    <div className={styles.ai_response}>
-                        {response ? (
-                            <div className={styles.response_content}>
-                                {response.split("\n").map((paragraph, index) => (
-                                    <p
-                                        key={`response-${index}`}
-                                        className={styles.response_paragraph}
-                                    >
-                                        {paragraph}
-                                    </p>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className={styles.no_response}>No results available</div>
-                        )}
-                    </div>
-                    <div className={styles.related_section}>
-                        <h2 className={styles.related_title}>Related Content</h2>
-                        <div className={styles.related_content}>
-                            {relatedContent === undefined ? (
-                                <div className={styles.no_related}>
-                                    Press Return, and the results will appear here
-                                </div>
-                            ) : (
-                                relatedContent.map(([date, name, percentage], index) => (
-                                    <div key={`related-${index}`} className={styles.related_card}>
-                                        <div className={styles.card_date}>{date}</div>
-                                        <div className={styles.card_name}>{name}</div>
-                                        <div
-                                            className={styles.card_percentage}
-                                        >{`${percentage}% match`}</div>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                    </div>
-                </div>
+                <div className={styles.topPortion}></div>
+                <div className={styles.bottomPortion}></div>
             </div>
         );
     }

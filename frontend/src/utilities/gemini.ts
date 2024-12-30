@@ -9,13 +9,14 @@ interface responseType {
 }
 
 async function callGemini(request_type: string, message: string) {
-    const route = GEMINI_PATH;
-    const response = await api.post(route, { request_type, message });
-    if (response.status === 200) {
-        return ["SUCCESS", response.data.detail];
-    } else {
-        return ["ERROR", response.data.detail];
-    }
+    // const route = GEMINI_PATH;
+    // const response = await api.post(route, { request_type, message });
+    // if (response.status === 200) {
+    //     return ["SUCCESS", response.data.detail];
+    // } else {
+    //     return ["ERROR", response.data.detail];
+    // }
+    return ["SUCCESS", "Example Response"];
 }
 
 const chatWithGemini = async (message: string) => await callGemini("c", message);

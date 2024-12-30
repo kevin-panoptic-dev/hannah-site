@@ -34,8 +34,9 @@ function NavBar() {
             alert("Please enter a valid search input.");
             return;
         }
+        setHoveredText(null);
         searchWith(userInput.trim());
-        redirect("ai/search");
+        redirect("search");
     };
 
     const handleMouseIn = (firstCharacter: string): void => {

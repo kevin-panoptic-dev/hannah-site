@@ -1,7 +1,6 @@
 import { useErrorContext } from "../../components/context/error";
 import { useState, useEffect } from "react";
 import styles from "./error.module.css";
-import { useNavigate } from "react-router-dom";
 
 const notfoundMessages = [
     "Where the page should be, Empty space and missing words— A void in the code.",
@@ -20,10 +19,6 @@ function Error() {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const [contentText, setContentText] = useState("");
     const { error } = useErrorContext();
-    const navigate = useNavigate();
-    const redirect = (place: string) => {
-        navigate(`/${place}`);
-    };
 
     useEffect(() => {
         if (error === null) {
