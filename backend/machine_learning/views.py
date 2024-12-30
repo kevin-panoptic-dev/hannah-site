@@ -37,7 +37,9 @@ class CreateGeminiModel(APIView):
                 # logger.info("fetch data from fetch function successfully.")
                 if response[0] == status.HTTP_200_OK:  # chat response oks
                     serializer.save()
-                    serializer.save(response_data=response[1]["detail"])
+                    serializer.save(
+                        user=self.request.user, response_data=response[1]["detail"]
+                    )
                     return Response(
                         {"detail": response[1]["detail"]["response"]},
                         status=status.HTTP_200_OK,
