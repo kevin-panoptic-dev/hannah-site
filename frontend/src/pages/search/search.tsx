@@ -20,6 +20,7 @@ function Search() {
         undefined
     );
     const [contentText, setContentText] = useState("");
+    const [antiReactFlag, setAntiReactFlag] = useState(false);
     const navigate = useNavigate();
 
     const toErrorPage = () => navigate(`/error`);
@@ -88,35 +89,40 @@ function Search() {
         }
     };
 
+    // to ensure safety, using navbar search on search page will not trigger anything
     useEffect(() => {
-        if (userInput === undefined) {
-            if (userInput) {
-                setUserInput(message);
-                searchWith("");
-                handleSubmit();
-            } else {
-                // setUserInput("");
-            }
-        } else {
-            // setUserInput("");
-            // updateErrorMessage(`f;Initial userInput should be undefined, not ${userInput}.`);
-            // toErrorPage();
+        if (message) {
+            // console.info(message);
+            setAntiReactFlag(true);
+            setUserInput(message);
         }
     }, []);
 
     useEffect(() => {
+        if (userInput && antiReactFlag) {
+            // console.info(userInput);
+            searchWith("");
+            handleSubmit();
+        }
+    }, [antiReactFlag]);
+
+    useEffect(() => {
         if (response) {
-            const text = response.split("");
+            const characterArray = response.split("");
             let i = -1;
 
-            const interval = setInterval(() => {
-                if (i < text.length - 1) {
-                    setContentText((prev) => prev + text[i]);
+            const typingCharacters = () => {
+                if (i < characterArray.length - 1) {
+                    setContentText((previous) => previous + characterArray[i]);
                     i++;
-                }
-            }, Math.random() * 50);
 
-            return () => clearInterval(interval);
+                    const delay = Math.random() * 40 + 0.5;
+
+                    setTimeout(typingCharacters, delay);
+                }
+            };
+
+            typingCharacters();
         }
     }, [response]);
 
@@ -135,6 +141,7 @@ function Search() {
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 e.preventDefault();
+                                setResponse("");
                                 setRelatedContent(undefined);
                                 setContentText("");
                                 handleSubmit();

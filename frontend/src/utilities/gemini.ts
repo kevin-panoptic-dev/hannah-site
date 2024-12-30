@@ -16,7 +16,12 @@ async function callGemini(request_type: string, message: string) {
     // } else {
     //     return ["ERROR", response.data.detail];
     // }
-    return ["SUCCESS", "Example Response"];
+    return [
+        "SUCCESS",
+        `Recursive setTimeout: Instead of using setInterval, we now define a function typeCharacter that will recursively call itself using setTimeout. This ensures that each character is typed with a random delay before the next character is displayed.
+	2.	Random Delay: We calculate a random delay (Math.random() * 150 + 50) for each character, which means that every time a new character is typed, the delay will be different.
+	3.	Simplified Logic: Since we no longer need an interval, the logic becomes simpler and more flexible. We just recursively schedule the next character with a delay.`,
+    ];
 }
 
 const chatWithGemini = async (message: string) => await callGemini("c", message);
