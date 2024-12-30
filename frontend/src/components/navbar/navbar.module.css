@@ -553,17 +553,14 @@
 
     .searchDropdownContent {
         position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
+        top: -1000px;
         width: 0px;
         height: 0px;
         background-color: rgba(8, 8, 8, 0.7);
         opacity: 0;
         transform: translateY(-50px);
         transition: opacity 0.5s ease, transform 0.5s ease;
-        padding-left: 40px;
-        padding-right: 40px;
+
         padding-top: 10px;
 
         &.show {
@@ -572,14 +569,17 @@
             overflow: hidden;
             width: 100vw;
             height: 100vh;
+            top: 100%;
+            left: 0;
+            right: 0;
+            padding-left: 250px;
+            padding-right: 250px;
         }
 
         .searchInput {
             border: none;
             background-color: transparent;
             padding-top: 40px;
-            padding-left: 60px;
-            padding-right: 60px;
             font-size: 40px;
             font-weight: 500;
             width: 100%;

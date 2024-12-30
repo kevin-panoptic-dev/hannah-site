@@ -4,7 +4,7 @@ import { generateRandomDates, generatePercentages } from "../../utilities/random
 import { chatWithGemini } from "../../utilities/gemini";
 import LoadingIndicator from "../loading/loading";
 import { useState, useEffect } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useErrorContext } from "../../components/context/error";
 import { useSearchContext } from "../../components/context/search";
 import { PAGES } from "../../utilities/constants";
@@ -13,13 +13,13 @@ function Search() {
     const { message, searchWith } = useSearchContext();
     const { updateErrorMessage } = useErrorContext();
     const [isLoading, setIsLoading] = useState(false);
-    const [result, setResult] = useState("");
     const [userInput, setUserInput] = useState<string | undefined>(undefined);
     const [response, setResponse] = useState<string | undefined>(undefined);
-    const [thinkingTime, setThinkingTime] = useState<number>(0); // pretend to be thinking...
+    const [thinkingTime, setThinkingTime] = useState<string>(""); // pretend to be thinking...
     const [relatedContent, setRelatedContent] = useState<[string, string, string][] | undefined>(
         undefined
     );
+    const [contentText, setContentText] = useState("");
     const navigate = useNavigate();
 
     const toErrorPage = () => navigate(`/error`);
@@ -76,11 +76,12 @@ function Search() {
             } else {
                 provideSearchResult();
                 const finish = performance.now();
-                setThinkingTime((finish - start) / 1000);
+                setThinkingTime(((finish - start) / 1000).toFixed(3));
                 setResponse(responseArray[1]);
             }
         } catch (error) {
             updateErrorMessage(`b;${error}`);
+            console.log(error);
             toErrorPage();
         } finally {
             setIsLoading(false);
@@ -94,14 +95,30 @@ function Search() {
                 searchWith("");
                 handleSubmit();
             } else {
-                setUserInput("");
+                // setUserInput("");
             }
         } else {
-            setUserInput("");
+            // setUserInput("");
             // updateErrorMessage(`f;Initial userInput should be undefined, not ${userInput}.`);
             // toErrorPage();
         }
     }, []);
+
+    useEffect(() => {
+        if (response) {
+            const text = response.split("");
+            let i = -1;
+
+            const interval = setInterval(() => {
+                if (i < text.length - 1) {
+                    setContentText((prev) => prev + text[i]);
+                    i++;
+                }
+            }, Math.random() * 50);
+
+            return () => clearInterval(interval);
+        }
+    }, [response]);
 
     if (isLoading) {
         return <LoadingIndicator message="Out AI model is thinking, please wait..." />;
@@ -109,7 +126,7 @@ function Search() {
         return (
             <div className={styles.change_container}>
                 <div className={styles.topPortion}>
-                    <p className={styles.you}>You</p>
+                    <p className={styles.you}>You: </p>
                     <input
                         type="text"
                         placeholder="Press `Return` to use AI powered search"
@@ -118,12 +135,56 @@ function Search() {
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 e.preventDefault();
+                                setRelatedContent(undefined);
+                                setContentText("");
                                 handleSubmit();
                             }
                         }}
+                        className={styles.searchBox}
                     />
+                    <hr className={styles.underlineBreaker} />
+                    {response ? (
+                        <>
+                            <p className={styles.ai}>AI assistant: </p>
+                            <p className={styles.think}>Thinking for {thinkingTime} seconds</p>
+                            <div className={styles.searchWrapper}>
+                                <p className={styles.searchContent}>{contentText}</p>
+                            </div>
+                            <hr className={styles.breaker} />
+                        </>
+                    ) : (
+                        <>
+                            <p className={styles.ai}>AI assistant: </p>
+                            <div className={styles.searchWrapper}>
+                                <p className={styles.searchContent}>
+                                    Type anything, and I'm ready to help!
+                                </p>
+                            </div>
+                        </>
+                    )}
                 </div>
-                <div className={styles.bottomPortion}></div>
+                <div className={styles.bottomPortion}>
+                    {response && relatedContent && (
+                        <>
+                            <p className={styles.title}>Your suggested results</p>
+                            <div className={styles.resultWrapper}>
+                                {relatedContent.map((array, index) => (
+                                    <div key={index} className={styles.resultCard}>
+                                        {array.map((item, index) => (
+                                            <p key={index} className={`${styles.items}${index}`}>
+                                                {index === 0
+                                                    ? `released date: ${item}`
+                                                    : index === 1
+                                                    ? item
+                                                    : `${item}% match`}
+                                            </p>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
         );
     }
