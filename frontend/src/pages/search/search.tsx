@@ -21,6 +21,7 @@ function Search() {
     );
     const [contentText, setContentText] = useState("");
     const [antiReactFlag, setAntiReactFlag] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
     const navigate = useNavigate();
 
     const toErrorPage = () => navigate(`/error`);
@@ -65,8 +66,12 @@ function Search() {
             toErrorPage();
             return;
         }
+        if (isTyping) return;
 
         try {
+            setResponse("");
+            setRelatedContent(undefined);
+            setContentText("");
             setIsLoading(true);
             const start = performance.now();
             const responseArray = await chatWithGemini(userInput);
@@ -89,14 +94,13 @@ function Search() {
         }
     };
 
-    // to ensure safety, using navbar search on search page will not trigger anything
     useEffect(() => {
-        if (message) {
+        if (message && !isTyping) {
             // console.info(message);
             setAntiReactFlag(true);
             setUserInput(message);
         }
-    }, []);
+    }, [message]);
 
     useEffect(() => {
         if (userInput && antiReactFlag) {
@@ -110,19 +114,31 @@ function Search() {
         if (response) {
             const characterArray = response.split("");
             let i = -1;
+            setContentText("");
+            setIsTyping(true);
 
             const typingCharacters = () => {
                 if (i < characterArray.length - 1) {
                     setContentText((previous) => previous + characterArray[i]);
                     i++;
 
-                    const delay = Math.random() * 40 + 0.5;
-
-                    setTimeout(typingCharacters, delay);
+                    if (Math.random() >= 0.9) {
+                        const delay = Math.random() * 80;
+                        setTimeout(typingCharacters, delay);
+                    } else {
+                        const delay = Math.random() * 30;
+                        setTimeout(typingCharacters, delay);
+                    }
+                } else {
+                    setIsTyping(false);
                 }
             };
-
-            typingCharacters();
+            if (i === -1) {
+                typingCharacters();
+            } else {
+                i = -1;
+                typingCharacters();
+            }
         }
     }, [response]);
 
@@ -139,7 +155,7 @@ function Search() {
                         value={userInput !== undefined ? userInput : ""}
                         onChange={(e) => setUserInput(e.target.value)}
                         onKeyDown={(e) => {
-                            if (e.key === "Enter") {
+                            if (e.key === "Enter" && userInput && !isTyping) {
                                 e.preventDefault();
                                 setResponse("");
                                 setRelatedContent(undefined);

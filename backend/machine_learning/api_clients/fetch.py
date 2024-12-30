@@ -24,7 +24,7 @@ async def request_gemini(request_type: Literal["s", "r", "c", "t"], message: str
         response = await async_post_request(
             url=GEMINI_API_URL, json=JSON, headers=HEADERS
         )
-        prismelt("We are here!", color=(255, 0, 0))
+        # prismelt("We are here!", color=(255, 0, 0))
 
         if response.status_code == 200:
             data = response.json()
@@ -58,7 +58,7 @@ async def request_gemini(request_type: Literal["s", "r", "c", "t"], message: str
 async def parseGeminiResponse(*, data: dict, request_type: str) -> dict:
     response_text: str = data["candidates"][0]["content"]["parts"][0]["text"]
     response_text = response_text.strip("\n").strip()
-    prismelt(response_text, color=(0, 0, 255))
+    prismelt(f"Gemini Response: {response_text}", color=(0, 0, 255))
     match request_type:
         case "s":
             if response_text == "0":  # no error occurs, positive
@@ -77,6 +77,7 @@ async def parseGeminiResponse(*, data: dict, request_type: str) -> dict:
                     "response": "BAD INPUT",
                 }
             else:
+                prismelt("Gemini data parsed successfully", color=(255, 0, 0))
                 return {
                     "error": False,
                     "error_message": None,

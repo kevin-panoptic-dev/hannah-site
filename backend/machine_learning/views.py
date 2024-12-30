@@ -8,6 +8,16 @@ from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 import asyncio
+import logging
+from pymodule.utility import prismelt
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(filename)s:%(lineno)d - %(message)s",
+    handlers=[logging.StreamHandler()],
+)
+
+logger = logging.getLogger()
 
 
 class CreateGeminiModel(APIView):
@@ -21,13 +31,13 @@ class CreateGeminiModel(APIView):
     def post(self, request):
         serializer = GeminiModelSerializer(data=request.data)
         if serializer.is_valid():
+            # logger.info("serializer is valid.")
             try:
                 response = self.fetch(serializer)
+                # logger.info("fetch data from fetch function successfully.")
                 if response[0] == status.HTTP_200_OK:  # chat response oks
                     serializer.save()
-                    serializer.save(
-                        user=self.request.user, response_data=response[1]["detail"]
-                    )
+                    serializer.save(response_data=response[1]["detail"])
                     return Response(
                         {"detail": response[1]["detail"]["response"]},
                         status=status.HTTP_200_OK,
@@ -61,11 +71,13 @@ class CreateGeminiModel(APIView):
     def fetch(cls, serializer):
         request_type = serializer.validated_data["request_type"]
         message = serializer.validated_data["message"]
-
+        # logger.info(f"{message=}, {request_type=} in fetch setup.")
         match request_type:
             case "c":
                 loop = asyncio.new_event_loop()
                 chat_response = loop.run_until_complete(request_gemini("c", message))
+                # logger.info("chat response run successfully.")
+                # logger.info(f"{chat_response["error"]=}")
                 if chat_response["error"]:
                     match chat_response["response"]:
                         case "API ERROR":
@@ -85,6 +97,9 @@ class CreateGeminiModel(APIView):
                                 "detail": "An unknown error occurred."
                             }
                 else:
+                    prismelt(
+                        "The detail is passed to status successfully", color=(255, 0, 0)
+                    )
                     return status.HTTP_200_OK, {"detail": chat_response}
 
             case "f":
