@@ -6,6 +6,7 @@ import { useErrorContext } from "../context/error";
 import { useSearchContext } from "../context/search";
 import LoadingIndicator from "../../pages/loading/loading";
 import { GET_GRAPH_PATH } from "../../utilities/constants";
+import { useDirectionContext } from "../context/direction";
 
 function NavBar() {
     const route = GET_GRAPH_PATH;
@@ -13,6 +14,7 @@ function NavBar() {
     const redirect = (place: string) => {
         navigate(`/${place}`);
     };
+    const { updateRoute } = useDirectionContext();
     const { updateErrorMessage } = useErrorContext();
     const { searchWith } = useSearchContext();
     /*
@@ -36,6 +38,7 @@ function NavBar() {
         }
         setHoveredText(null);
         searchWith(userInput.trim());
+        updateRoute("search");
         redirect("search");
     };
 

@@ -26,9 +26,21 @@ class SiteUserSerializer(serializers.ModelSerializer):
 
 
 class LoginUserSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True)
-    username = serializers.CharField(required=True)
-    password = serializers.CharField(required=True, write_only=True)
+    email = serializers.EmailField(required=False)
+    username = serializers.CharField(required=False)
+    password = serializers.CharField(required=False, write_only=True)
+
+    def validate(self, attrs):
+        provided_fields = [
+            field for field in ["email", "username", "password"] if attrs.get(field)
+        ]
+
+        if len(provided_fields) != 2:
+            raise serializers.ValidationError(
+                "You must provide exactly two of the following fields: email, username, and password."
+            )
+
+        return attrs
 
 
 class LogoutUserSerializer(serializers.Serializer):

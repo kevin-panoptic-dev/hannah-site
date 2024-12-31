@@ -35,19 +35,36 @@ class LoginSiteUser(APIView):
     def post(self, request):
         serializer = LoginUserSerializer(data=request.data)
         if serializer.is_valid():
+            try:
+                username = serializer.validated_data["username"]  # type: ignore
+            except Exception as e:
+                username = None
+                prismelt(e, color=(255, 0, 0))
 
-            username = serializer.validated_data["username"]  # type: ignore
-            password = serializer.validated_data["password"]  # type: ignore
-            email = serializer.validated_data["email"]  # type: ignore
+            try:
+                password = serializer.validated_data["password"]  # type: ignore
+            except Exception as e:
+                password = None
+                prismelt(e, color=(255, 0, 0))
+
+            try:
+                email = serializer.validated_data["email"]  # type: ignore
+            except Exception as e:
+                email = None
+                prismelt(e, color=(255, 0, 0))
 
             # prismelt(f"{username=}, {password=}, {email=}", color=(0, 0, 255))
-
             user = authenticate(username=username, password=password, email=email)
             if user:
                 refresh_token = RefreshToken.for_user(user)
                 refresh_token["user_id"] = user.id  # type: ignore
                 access_token = refresh_token.access_token  # type: ignore
                 user_type = user.user_type  # type: ignore
+                username = user.username
+                email = user.email
+                refresh_token["email"] = email
+                refresh_token["username"] = username
+
                 if user_type == "d":
                     refresh_token["is_donator"] = True
                 else:
