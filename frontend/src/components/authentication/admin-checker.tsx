@@ -14,7 +14,7 @@ interface decodedTokenType extends JwtPayload {
     is_admin: boolean | any;
 }
 
-function DonateOnly({ children }: childrenType) {
+function AdminOnly({ children }: childrenType) {
     const [isAdmin, setIsAdmin] = useState<undefined | boolean>(undefined);
     const { updateErrorMessage } = useErrorContext();
     const navigate = useNavigate();
@@ -65,4 +65,4 @@ function DonateOnly({ children }: childrenType) {
     }
 }
 
-export default DonateOnly;
+export default AdminOnly;

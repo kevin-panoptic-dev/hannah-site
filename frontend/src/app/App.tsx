@@ -5,6 +5,10 @@ import { ErrorProvider } from "../components/context/error";
 import { SearchProvider } from "../components/context/search";
 import Error from "../pages/error/Error";
 import Search from "../pages/search/search";
+import LoginOnly from "../components/authentication/login-checker";
+import DonateOnly from "../components/authentication/admin-checker";
+import AdminOnly from "../components/authentication/admin-checker";
+import Logout from "../components/authentication/logout";
 
 function App() {
     return (
@@ -15,7 +19,10 @@ function App() {
                     <Routes>
                         <Route path="/error" element={<Error />} />
                         <Route path="*" element={<Error />} />
-                        <Route path="/search" element={<Search />} />
+                        <LoginOnly>
+                            <Route path="/search" element={<Search />} />
+                        </LoginOnly>
+                        <Route path="/logout" element={<Logout />} />
                     </Routes>
                 </main>
             </SearchProvider>
