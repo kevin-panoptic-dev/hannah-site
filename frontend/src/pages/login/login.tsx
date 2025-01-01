@@ -21,11 +21,10 @@ function Login() {
     const [countDown, setCountDown] = useState(3);
     const [showInvalid, setShowInvalid] = useState(false);
     const [showOption, setShowOption] = useState(false);
-
-    /*
-    0, 1, 2 principle:
-    0 => username, 1 => password, 2 => email
-    input type <= sum of the two numbers
+    /* 
+    INFO: 0, 1, 2 principle:
+    INFO: 0 => username, 1 => password, 2 => email
+    INFO: input type <= sum of the two numbers
     */
     const [inputType, setInputType] = useState<number>(1);
     const toEmailAndPassword = () => setInputType(3);
@@ -85,11 +84,23 @@ function Login() {
             setLoading(true);
             let response;
             if (inputType === 1) {
-                response = await api.post(LOGIN_PATH, { username: username, password: password });
+                response = await api.post(
+                    LOGIN_PATH,
+                    { username: username, password: password },
+                    { validateStatus: () => true }
+                );
             } else if (inputType === 2) {
-                response = await api.post(LOGIN_PATH, { username: username, email: email });
+                response = await api.post(
+                    LOGIN_PATH,
+                    { username: username, email: email },
+                    { validateStatus: () => true }
+                );
             } else {
-                response = await api.post(LOGIN_PATH, { email: email, password: password });
+                response = await api.post(
+                    LOGIN_PATH,
+                    { email: email, password: password },
+                    { validateStatus: () => true }
+                );
             }
 
             if (response.status === 200) {
@@ -106,8 +117,8 @@ function Login() {
                 setEmail("");
                 setUsername("");
                 setPassword("");
-                if (!countDown) {
-                    updateErrorMessage("f;Too many invalid inputs.");
+                if (countDown === 1) { // INFO: actual 0, debounce issue.
+                    updateErrorMessage("f;Too many invalid inputs");
                     toErrorPage();
                 }
                 if (!showInvalid) {
@@ -135,7 +146,23 @@ function Login() {
         return (
             <div className={styles.change_container}>
                 <div className={styles.container}>
-                    <form onSubmit={(e) => handleSubmit(e)} className={styles.wrapperForm}>
+                    <p className={styles.title}>Login</p>
+
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            if (inputType === 1 && (!username.trim() || !password.trim())) return;
+                            if (inputType === 2 && (!username.trim() || !email.trim())) return;
+                            if (inputType === 3 && (!email.trim() || !password.trim())) return;
+                            handleSubmit(e);
+                        }}
+                        className={styles.wrapperForm}
+                    >
+                        <div className={styles.alignWrapper}>
+                            <p className={styles.subTitle}>
+                                {inputType === 3 ? "Email" : "Username"}
+                            </p>
+                        </div>
                         <input
                             type={getInputType()[0]}
                             value={inputType === 3 ? email : username}
@@ -144,18 +171,21 @@ function Login() {
                                     ? setEmail(e.target.value)
                                     : setUsername(e.target.value);
                             }}
-                            placeholder={getInputType()[0] !== "text" ? getInputType()[0] : "text"}
                             className={styles.inputBox}
                         />
+                        <div className={styles.alignWrapper}>
+                            <p className={styles.subTitle}>
+                                {inputType === 2 ? "Email" : "Password"}
+                            </p>
+                        </div>
                         <input
                             type={getInputType()[1]}
-                            value={inputType === 2 ? email : username}
+                            value={inputType === 2 ? email : password}
                             onChange={(e) => {
                                 inputType === 2
                                     ? setEmail(e.target.value)
                                     : setPassword(e.target.value);
                             }}
-                            placeholder={getInputType()[1]}
                             className={styles.inputBox}
                         />
                         <button type="submit" className={styles.formButton}>
@@ -164,14 +194,23 @@ function Login() {
                     </form>
                     {showInvalid && (
                         <p className={styles.warning}>
-                            Invalid authentication credential, you have {countDown} attempt left.
+                            Invalid authentication credential, you have {countDown} attempts left.
                         </p>
                     )}
-                    <p className={styles.option} onClick={() => setShowOption(true)}>
+                    <p
+                        className={styles.optionClick}
+                        onClick={() => setShowOption((previous) => !previous)}
+                    >
                         {showOption ? "Less Options" : "More Options"}
                     </p>
                     {showOption && <div className={styles.optionContainer}>{getOptions()}</div>}
                 </div>
+                <p className={styles.forNew}>
+                    Don't have an account yet?{" "}
+                    <span className={styles.onlySpan} onClick={() => navigate("/signup")}>
+                        Sign up {">"}
+                    </span>
+                </p>
             </div>
         );
     }

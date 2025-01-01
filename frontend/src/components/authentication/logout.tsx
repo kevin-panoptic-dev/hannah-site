@@ -27,6 +27,7 @@ function Logout() {
                 toErrorPage();
             });
     }
+    alert("You are successfully logged out");
     return <Navigate to="/login"></Navigate>;
 }
 

@@ -15,7 +15,7 @@ const useDirectionContext = () => {
     const context = useContext(DirectionContext);
 
     if (context === undefined) {
-        throw new Error("Invalid ErrorContext: undefined.");
+        throw new Error("Invalid DirectionContext: undefined.");
     }
 
     return context;
