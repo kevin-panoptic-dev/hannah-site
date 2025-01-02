@@ -11,6 +11,7 @@ import DonateOnly from "../components/authentication/admin-checker";
 import AdminOnly from "../components/authentication/admin-checker";
 import Logout from "../components/authentication/logout";
 import Login from "../pages/login/login";
+import Register from "../pages/register/register";
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                             />
                             <Route path="/logout" element={<Logout />} />
                             <Route path="/login" element={<Login />}></Route>
+                            <Route path="/register" element={<Register />}></Route>
                         </Routes>
                     </main>
                 </DirectionProvider>

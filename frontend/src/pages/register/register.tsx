@@ -1,5 +1,5 @@
 import api from "../../utilities/api/api";
-import styles from "./signup.module.css";
+import styles from "./register.module.css";
 import { REGISTER_PATH, LOGIN_PATH } from "../../utilities/constants";
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -34,9 +34,13 @@ function Register() {
             );
 
             // INFO: Check all the possible response status from rest genetic api
-            console.info(`response status = ${response.status}.`);
-
-            if (response.status === 200) {
+            // WARN: Only three cases are tested
+            // WARN: Password has no restrictions, "1234567890" is also valid
+            // WARN: Unknown response status (OK || CREATED)
+            if (response.status === 200 || response.status === 201) {
+                setEmail("");
+                setPassword("");
+                setUsername("");
                 login()
                     .then((tokenData) => {
                         const accessToken = tokenData.data.access;
@@ -51,20 +55,38 @@ function Register() {
                         }
                     })
                     .catch((error) => {
+                        // SAFE
                         updateErrorMessage(`f;${error.message}`);
                         toErrorPage();
                     })
                     .finally(() => {
                         setLoading(false);
                     });
-            } else {
-                console.error(
-                    `BackendError: status=${response.status}, error=${response.data.detail}.`
-                );
+            } else if (response.status === 400) {
+                setShowInvalid(true);
+                if (response.data.username !== undefined) {
+                    setWarningMessage(`${response.data.username[0]} Try again.`);
+                } else if (response.data.email !== undefined) {
+                    setWarningMessage(`${response.data.email[0]} Try again.`);
+                } else {
+                    // console.log(1);
+                    updateErrorMessage(`b;${response}`);
+                    toErrorPage();
+                }
+                // INFO: Error resolved
+                // ERROR: An unresolved, unknown [object Object] error occurs.
+                // console.error(
+                //     `BackendError: status=${response.status}, error=${response.data.detail}.`
+                // );
                 // updateErrorMessage(`b;${response.status} error: ${response.data.detail}`);
                 // toErrorPage();
+            } else {
+                // console.log(2);
+                updateErrorMessage(`b;${response}`);
+                toErrorPage();
             }
         } catch (error) {
+            // SAFE
             if (error instanceof Error) {
                 updateErrorMessage(`f;${error.message}`);
             } else {
@@ -83,19 +105,26 @@ function Register() {
             <div className={styles.change_container}>
                 <div className={styles.leftHalf}>
                     <div className={styles.leftContainer}>
-                        <p className={styles.leftTitle}>Start Today to support Hannah's Dream!</p>
+                        <p className={styles.leftTitle}>Support My Dream!</p>
                         <form
                             onSubmit={(e) => {
                                 e.preventDefault();
-                                username.trim() &&
-                                    password.trim() &&
-                                    email.trim() &&
-                                    handleSubmit(e);
+                                if (password.length >= 8) {
+                                    username.trim() &&
+                                        password.trim() &&
+                                        email.trim() &&
+                                        handleSubmit(e);
+                                } else {
+                                    setWarningMessage(
+                                        "Password must be at least 8 characters long."
+                                    );
+                                    setShowInvalid(true);
+                                }
                             }}
                             className={styles.wrapperForm}
                         >
                             <div className={styles.alignWrapper}>
-                                <p className={styles.subTitle}>Username</p>
+                                <p className={styles.subtitle}>Username</p>
                             </div>
                             <input
                                 type="text"
@@ -106,24 +135,24 @@ function Register() {
                                 className={styles.inputBox}
                             />
                             <div className={styles.alignWrapper}>
-                                <p className={styles.subTitle}>Password</p>
-                            </div>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
-                                }}
-                                className={styles.inputBox}
-                            />
-                            <div className={styles.alignWrapper}>
-                                <p className={styles.subTitle}>Organization Email</p>
+                                <p className={styles.subtitle}>Organization Email</p>
                             </div>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => {
                                     setEmail(e.target.value);
+                                }}
+                                className={styles.inputBox}
+                            />
+                            <div className={styles.alignWrapper}>
+                                <p className={styles.subtitle}>Password</p>
+                            </div>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
                                 }}
                                 className={styles.inputBox}
                             />
@@ -135,7 +164,7 @@ function Register() {
                     </div>
                     <p className={styles.forOld}>
                         Already have an account?{" "}
-                        <span className={styles.leftSpan} onClick={() => navigate("/signup")}>
+                        <span className={styles.leftSpan} onClick={() => navigate("/login")}>
                             Login {">"}
                         </span>
                     </p>
@@ -150,7 +179,7 @@ function Register() {
                                 aria-hidden="true"
                                 viewBox="0 0 20 20"
                             >
-                                <g clip-path="url(#clip0_1_172)">
+                                <g clipPath="url(#clip0_1_172)">
                                     <path
                                         d="M15.8335 7.50001L16.8752 5.20834L19.1668 4.16668L16.8752 3.12501L15.8335 0.833344L14.7918 3.12501L12.5002 4.16668L14.7918 5.20834L15.8335 7.50001Z"
                                         fill="white"
@@ -181,7 +210,7 @@ function Register() {
                         </div>
                         <div className={styles.rightBoxes}>
                             <svg
-                                className={styles.svg}
+                                className={styles.SVG}
                                 focusable="false"
                                 aria-hidden="true"
                                 viewBox="0 0 20 20"
@@ -191,7 +220,7 @@ function Register() {
                                     fill="white"
                                 ></path>
                             </svg>
-                            <div className={styles.contentWrapper}>
+                            <div className={styles.contentWrapper} style={{ marginLeft: "-10px" }}>
                                 <p className={styles.innerTitle}>Be my friend</p>
                                 <p className={styles.innerDescription}>
                                     Stay in touch, and get professional, helpful advice from

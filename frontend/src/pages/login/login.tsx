@@ -117,7 +117,8 @@ function Login() {
                 setEmail("");
                 setUsername("");
                 setPassword("");
-                if (countDown === 1) { // INFO: actual 0, debounce issue.
+                if (countDown === 1) {
+                    // INFO: actual 0, debounce issue.
                     updateErrorMessage("f;Too many invalid inputs");
                     toErrorPage();
                 }
@@ -159,7 +160,7 @@ function Login() {
                         className={styles.wrapperForm}
                     >
                         <div className={styles.alignWrapper}>
-                            <p className={styles.subTitle}>
+                            <p className={styles.subtitle}>
                                 {inputType === 3 ? "Email" : "Username"}
                             </p>
                         </div>
@@ -174,7 +175,7 @@ function Login() {
                             className={styles.inputBox}
                         />
                         <div className={styles.alignWrapper}>
-                            <p className={styles.subTitle}>
+                            <p className={styles.subtitle}>
                                 {inputType === 2 ? "Email" : "Password"}
                             </p>
                         </div>
@@ -207,7 +208,7 @@ function Login() {
                 </div>
                 <p className={styles.forNew}>
                     Don't have an account yet?{" "}
-                    <span className={styles.onlySpan} onClick={() => navigate("/signup")}>
+                    <span className={styles.onlySpan} onClick={() => navigate("/register")}>
                         Sign up {">"}
                     </span>
                 </p>

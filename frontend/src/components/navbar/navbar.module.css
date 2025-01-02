@@ -590,3 +590,9 @@
         }
     }
 }
+
+@media (max-width: 1145px) {
+    .middle {
+        display: none !important;
+    }
+}

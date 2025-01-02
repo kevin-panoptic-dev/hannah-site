@@ -3,6 +3,7 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
+    padding-top: 40px;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
@@ -10,15 +11,17 @@
     .leftHalf {
         display: flex;
         flex-direction: column;
-        align-items: top;
+        align-items: center;
         justify-content: center;
         flex: 1;
         min-width: 400px;
+        max-width: 600px;
         height: 70%;
+        margin-left: 90px;
 
         .leftContainer {
-            width: 25%;
-            height: 73%;
+            width: 75%;
+            height: 100%;
             background-color: #232324;
             display: flex;
             flex-direction: column;
@@ -32,7 +35,8 @@
 
             .leftTitle {
                 color: #ffffff;
-                font-size: 26px;
+                font-size: 22px;
+                text-align: center;
             }
 
             .wrapperForm {
@@ -46,10 +50,10 @@
                     width: 100%;
 
                     .subtitle {
-                        font-size: 11px;
+                        font-size: 14px;
                         color: #ffffff;
                         display: block;
-                        padding-bottom: 0;
+                        padding-bottom: 2px;
                         margin-bottom: 0;
                     }
                 }
@@ -112,12 +116,15 @@
     .rightHalf {
         display: flex;
         flex-direction: column;
-        align-items: top;
-        justify-content: center;
+        align-items: center;
+        justify-content: flex-start;
         flex: 1.5;
-        min-width: 600px;
+        min-width: 500px;
+        max-width: 900px;
         height: 100%;
         background-color: transparent;
+        padding-top: 80px;
+        margin-right: 90px;
 
         .rightTitle {
             color: #ffffff;
@@ -133,39 +140,71 @@
             .rightBoxes {
                 border-color: #3f3f46;
                 background-color: transparent;
-                border-radius: 2px;
+                border-radius: 5px;
                 border-width: 1px;
                 border-style: solid;
                 color: #ffffff;
                 width: 100%;
                 display: flex;
                 flex-direction: row;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: left;
+                margin-top: 20px;
 
                 .SVG {
-                    width: 40px;
-                    height: 40px;
+                    padding-left: 1ch;
+                    width: 50px;
+                    height: 50px;
+                    padding-top: 20px;
+                    display: inline-block;
                 }
 
                 .contentWrapper {
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
-                    justify-content: left;
+                    align-items: left;
+                    justify-content: center;
+                    padding-left: 20px;
 
                     .innerTitle {
                         color: #ffffff;
-                        font-size: 24px;
+                        font-size: 22px;
+                        margin-top: 0;
+                        padding-top: 15px;
+                        margin-bottom: 0;
+                        padding-bottom: 2px;
                     }
 
                     .innerDescription {
                         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
                             Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
                         font-size: 16px;
+                        margin-top: 0;
+                        padding-top: 10px;
+                        margin-bottom: 0;
+                        padding-bottom: 20px;
+                        font-weight: 200;
                     }
                 }
             }
         }
+    }
+}
+
+@media (max-width: 1100px) {
+    .rightHalf {
+        margin-left: 120px;
+    }
+    .leftHalf {
+        margin-right: 120px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .rightHalf {
+        margin-left: 10px !important;
+    }
+    .leftHalf {
+        margin-right: 10px !important;
     }
 }
