@@ -1,4 +1,4 @@
-import { useContext, ReactNode, createContext, useState } from "react";
+import { useContext, ReactNode, createContext, useState, useEffect } from "react";
 
 interface childrenType {
     children: ReactNode;
@@ -24,9 +24,23 @@ const useDirectionContext = () => {
 function DirectionProvider({ children }: childrenType) {
     const [route, setRoute] = useState<string | null>(null);
 
-    const updateRoute = (route: string | null) => setRoute(`/${route}`);
+    const updateRoute = (route: string | null) => {
+        setRoute(`/${route}`);
+        if (route) {
+            localStorage.setItem("route", `/${route}`);
+        } else {
+            localStorage.removeItem("route");
+        }
+    };
 
     const value: directionContextType = { route, updateRoute };
+
+    useEffect(() => {
+        const savedRoute = localStorage.getItem("route");
+        if (savedRoute) {
+            setRoute(savedRoute);
+        }
+    }, []);
 
     return <DirectionContext.Provider value={value}>{children}</DirectionContext.Provider>;
 }

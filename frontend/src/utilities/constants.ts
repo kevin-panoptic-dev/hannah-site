@@ -5,6 +5,7 @@ const REFRESH_TOKEN_PATH = "auth/token/refresh/";
 const LOGOUT_PATH = "auth/logout/";
 const LOGIN_PATH = "auth/login/";
 const DELETE_USER_PATH = "auth/delete/";
+const REGISTER_PATH = "auth/register/";
 
 const PAGES = {
     math: "My Math Talent",
@@ -28,4 +29,5 @@ export {
     LOGOUT_PATH,
     LOGIN_PATH,
     DELETE_USER_PATH,
+    REGISTER_PATH,
 };
