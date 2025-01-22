@@ -1,3 +1,5 @@
+# This is a sed news that this website may never go live...
+
 # Personal Website for Hannah!
 
 This repository hosts the code for **Hannah's website** built with a **TypeScript React frontend** and a **Django REST framework backend**. It incorporates modern web development practices, smooth animations, and dynamic content rendering.
