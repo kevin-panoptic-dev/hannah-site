@@ -1,0 +1,10 @@
+.expandWrapper {
+    transform-origin: 50vw 40vh;
+    transform: scale(0.9);
+    transition: transform 4s ease;
+}
+
+.visible {
+    transform: scale(1);
+    transform-origin: 50vw 40vh;
+}

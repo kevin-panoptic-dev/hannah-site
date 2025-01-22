@@ -1,0 +1,3 @@
+const LAYER_VIEW_HEIGHT = 1;
+
+export { LAYER_VIEW_HEIGHT };

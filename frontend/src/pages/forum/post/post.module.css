@@ -1,0 +1,120 @@
+.change_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    padding-top: 100px;
+
+    .composeGroup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 60%;
+        min-height: 65vh;
+        height: 85vh;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 30px;
+        padding-bottom: 60px;
+        background-color: #1d1d1f;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+            0 1px 3px rgba(0, 0, 0, 0.06);
+
+        .topPortion {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 100%;
+            height: 80px;
+            padding-left: 10px;
+
+            .title {
+                display: inline;
+                color: aliceblue;
+                font-size: 15px;
+                user-select: none;
+            }
+
+            .alignWrapper {
+                flex: 1;
+                display: flex;
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: flex-end;
+
+                .clearButton {
+                    width: 60px;
+                    height: 30px;
+                    border-radius: 10px;
+                    background-color: red;
+                    border: none;
+                    color: white;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: darkred;
+                        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+                        transform: scale(1.05);
+                    }
+                }
+            }
+        }
+
+        .messageForm {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 10px;
+
+            .inputArea {
+                padding-left: 10px;
+                padding-right: 10px;
+                overflow-wrap: break-word;
+                white-space: normal;
+                word-break: break-word;
+                width: 100%;
+                font-size: 16px;
+                line-height: 1.5rem;
+                border-style: solid;
+                border-radius: 15px;
+                resize: vertical;
+                border-width: 3px;
+                padding-left: 18px;
+                padding-right: 18px;
+                padding-top: 18px;
+                padding-bottom: 18px;
+
+                &:focus {
+                    outline: none;
+                    border-color: #0066cc;
+                    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+                }
+            }
+
+            .formButton {
+                padding: 0.75rem 1.5rem;
+                background-color: #0066cc;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: #0052a3;
+                }
+            }
+        }
+    }
+}

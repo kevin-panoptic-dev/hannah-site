@@ -1,0 +1,107 @@
+.change_container {
+    background-color: #080808;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+
+    .topPortion {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+
+        .you {
+            margin-top: 120px;
+            font-family: sans-serif;
+            font-weight: 200;
+            font-size: 18px;
+        }
+
+        .underlineBreaker {
+            border: none;
+            border-top: 1px solid #8c8c8c;
+            width: 100%;
+            margin: 0;
+        }
+
+        .searchBox {
+            border: none;
+            background-color: transparent;
+            padding-top: 10px;
+            font-size: 40px;
+            font-weight: 500;
+            width: 100%;
+            height: 100%;
+            border-style: hidden;
+            color: white;
+            outline: none;
+        }
+
+        .ai {
+            margin-top: 40px;
+            font-family: sans-serif;
+            font-weight: 200;
+            font-size: 21px;
+        }
+
+        .think {
+            border: none;
+            border-radius: 8px;
+            background-color: grey;
+            width: 200px;
+            padding-left: 8px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .searchWrapper {
+            width: 100%;
+
+            .searchContent {
+                line-height: 2rem;
+                font-size: 22px;
+                font-family: Georgia, Times New Roman, Merriweather, PT Serif;
+            }
+        }
+        .breaker {
+            border: none;
+            border-top: 1px solid #8c8c8c;
+            width: 100%;
+            margin: 20px 0;
+        }
+    }
+
+    .bottomPortion {
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        width: 70%;
+        min-height: 200px;
+        padding-bottom: 400px;
+
+        .title {
+            width: 100%;
+            height: 40px;
+            color: white;
+            font-size: 28px;
+        }
+
+        .resultCard {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            height: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+    }
+}

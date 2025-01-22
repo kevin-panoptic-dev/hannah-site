@@ -1,0 +1,598 @@
+.container {
+    background-color: #080808;
+    color: #ffffff;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    box-shadow: 2px, 2px, 2px, rgba(8, 8, 8, 0.9);
+    z-index: 2;
+
+    .home {
+        border: none;
+        padding-left: 40px;
+        height: 100%;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .heading {
+            font-weight: 400;
+            font-size: 18px;
+            user-select: none;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .middle {
+        flex: 1.3;
+        border: none;
+        height: 100%;
+        padding-left: 120px;
+        padding-right: 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .academic {
+            font-weight: 300;
+            font-size: 15px;
+            user-select: none;
+            transition: color 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.togray {
+                color: #616161;
+            }
+        }
+
+        .academicDropdown {
+            position: absolute;
+            top: -1000px;
+            width: 0;
+            height: 0;
+            background-color: rgba(8, 8, 8, 0.5);
+            opacity: 0;
+            transform: translateY(-100px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+
+            &.show {
+                visibility: visible;
+                transform: translateY(0);
+                opacity: 1;
+                overflow: hidden;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .academicDropdownContent {
+                position: absolute;
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                padding-top: 20px;
+                align-items: top;
+                justify-content: left;
+
+                .academicAlignWrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: top;
+                    padding-left: 40px;
+
+                    .testContainer {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+
+                        .testHeader {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: left;
+                            color: #b4b4b4;
+                            font-weight: 400;
+                            font-size: 15px;
+                            user-select: none;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
+                        }
+                        .testContent {
+                            font-weight: 300;
+                            font-size: 15px;
+                            user-select: none;
+
+                            &:hover {
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                .courseContainer {
+                    flex: 1.3;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: top;
+                    padding-left: 120px;
+                    padding-right: 120px;
+
+                    .CourseHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                    .CourseContent {
+                        font-weight: 300;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .gpaGraphContainer {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: top;
+                    padding-right: 80px;
+
+                    .gpaHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+
+                    .gpaGraph {
+                        width: 100%;
+                        height: auto;
+                        opacity: 1;
+                        border-radius: 10px;
+                    }
+                }
+            }
+        }
+
+        .school {
+            font-weight: 300;
+            font-size: 15px;
+            user-select: none;
+            transition: color 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.togray {
+                color: #616161;
+            }
+        }
+        .schoolDropdown {
+            position: absolute;
+            top: -1000px;
+            width: 0;
+            height: 0;
+            background-color: rgba(8, 8, 8, 0.5);
+            opacity: 0;
+            transform: translateY(-100px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+
+            &.show {
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(0px);
+                overflow: hidden;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .schoolDropdownContent {
+                position: absolute;
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                padding-top: 20px;
+                align-items: top;
+                justify-content: left;
+
+                .schoolAlignWrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: top;
+                    padding-left: 40px;
+
+                    .clubContainer {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+
+                        .clubHeader {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: left;
+                            color: #b4b4b4;
+                            font-weight: 400;
+                            font-size: 15px;
+                            user-select: none;
+                        }
+                        .clubContent {
+                            font-weight: 300;
+                            font-size: 15px;
+                            user-select: none;
+
+                            &:hover {
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+
+                .eventContainer {
+                    flex: 1.3;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: top;
+                    padding-left: 120px;
+                    padding-right: 120px;
+
+                    .eventHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+                    .eventContent {
+                        font-weight: 300;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+        .beyond {
+            font-weight: 300;
+            font-size: 15px;
+            user-select: none;
+            transition: color 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.togray {
+                color: #616161;
+            }
+        }
+        .beyondDropdown {
+            position: absolute;
+            top: -1000px;
+            width: 0;
+            height: 0;
+            background-color: rgba(8, 8, 8, 0.5);
+            opacity: 0;
+            transform: translateY(-100px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+
+            &.show {
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(0px);
+                overflow: hidden;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .beyondDropdownContent {
+                position: absolute;
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                padding-top: 20px;
+                align-items: top;
+                justify-content: left;
+
+                .beyondAlignWrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: top;
+                    padding-left: 40px;
+
+                    .hobbyContainer {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+
+                        .hobbyHeader {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: left;
+                            color: #b4b4b4;
+                            font-weight: 400;
+                            font-size: 15px;
+                            user-select: none;
+                        }
+                        .hobbyContent {
+                            font-weight: 300;
+                            font-size: 15px;
+                            user-select: none;
+
+                            &:hover {
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+
+                .projectContainer {
+                    flex: 1.3;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: top;
+                    padding-left: 120px;
+                    padding-right: 120px;
+
+                    .projectHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+                    .projectContent {
+                        font-weight: 300;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+        .contact {
+            font-weight: 300;
+            font-size: 15px;
+            user-select: none;
+            transition: color 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.togray {
+                color: #616161;
+            }
+        }
+    }
+    .contactDropdown {
+        position: absolute;
+        top: -1000px;
+        width: 0;
+        height: 0;
+        background-color: rgba(8, 8, 8, 0.5);
+        opacity: 0;
+        transform: translateY(-100px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+
+        &.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            top: 100%;
+            left: 0;
+            right: 0;
+        }
+
+        .contactDropdownContent {
+            position: absolute;
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            padding-top: 20px;
+            align-items: top;
+            justify-content: left;
+
+            .contactAlignWrapper {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: top;
+                padding-left: 40px;
+
+                .socialContainer {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+
+                    .socialHeader {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                        color: #b4b4b4;
+                        font-weight: 400;
+                        font-size: 15px;
+                        user-select: none;
+                    }
+                    .socialContent {
+                        font-weight: 300;
+                        font-size: 15px;
+                        user-select: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .messageContainer {
+                flex: 1.3;
+                display: flex;
+                flex-direction: column;
+                align-items: left;
+                justify-content: top;
+                padding-left: 120px;
+                padding-right: 120px;
+
+                .messageHeader {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    color: #b4b4b4;
+                    font-weight: 400;
+                    font-size: 15px;
+                    user-select: none;
+                }
+                .messageContent {
+                    font-weight: 300;
+                    font-size: 15px;
+                    user-select: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .search {
+        flex: 1;
+        border: none;
+        height: 100%;
+        padding-right: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        .searchIcon {
+            width: 20px;
+            height: 20px;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.2);
+                transform-origin: center;
+                transition: transform 0.5s ease;
+            }
+        }
+    }
+
+    .searchDropdownContent {
+        position: absolute;
+        top: -1000px;
+        width: 0px;
+        height: 0px;
+        background-color: rgba(8, 8, 8, 0.7);
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+
+        padding-top: 10px;
+
+        &.show {
+            opacity: 1;
+            transform: translateY(0px);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            top: 100%;
+            left: 0;
+            right: 0;
+            padding-left: 250px;
+            padding-right: 250px;
+        }
+
+        .searchInput {
+            border: none;
+            background-color: transparent;
+            padding-top: 40px;
+            font-size: 40px;
+            font-weight: 500;
+            width: 100%;
+            height: 100%;
+            border-style: hidden;
+            color: white;
+            outline: none;
+        }
+    }
+}
+
+@media (max-width: 1145px) {
+    .middle {
+        display: none !important;
+    }
+}

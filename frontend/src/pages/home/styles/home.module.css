@@ -1,0 +1,113 @@
+.change_container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+
+    .wrapper {
+        overflow: hidden;
+        .prelude {
+            padding: 0;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .firstWrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+
+                .firstTitle {
+                    color: aliceblue;
+                    font-size: 80px;
+                    user-select: none;
+                    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+
+                    &:hover {
+                        cursor: default;
+                    }
+                }
+
+                .firstSubtitle {
+                    color: aliceblue;
+                    font-size: 18px;
+                    letter-spacing: 2px;
+                    user-select: none;
+
+                    &:hover {
+                        cursor: default;
+                    }
+                }
+            }
+            .arrowWrapper {
+                position: absolute;
+                bottom: 35px;
+                transform: translateX(-50%);
+                animation: moveUpDown 2s ease-in-out infinite;
+
+                .firstArrow {
+                    height: 20px;
+                    width: auto;
+                }
+            }
+        }
+    }
+}
+
+.change_second_page {
+    width: 100%;
+    padding-top: 40px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 40px;
+
+    .title {
+        color: black;
+        font-size: 35px;
+        padding-top: 60px;
+        padding-bottom: 20px;
+    }
+
+    .navigateButton {
+        background-color: #2a84ee;
+        color: white;
+        box-shadow: 1.1px 1.1px 1.1px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.5s ease;
+        font-size: 17px;
+        font-weight: 300;
+        width: 135px;
+        height: 40px;
+        border-radius: 8px;
+        border: none;
+        margin-top: 40px;
+
+        &:hover {
+            background-color: #1e66cc;
+        }
+    }
+}
+
+@keyframes moveUpDown {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(22px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,250 @@
+.change_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding-top: 50px;
+    background-color: white;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    & .titleLayer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+
+        .title {
+            color: #000000;
+            font-size: 40px;
+            box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.6);
+            border-style: none;
+            background-color: transparent;
+
+            &:hover {
+                user-select: none;
+                cursor: default;
+            }
+        }
+
+        .scrollText {
+            color: #000000;
+            font-size: 18px;
+            letter-spacing: 2px;
+            user-select: none;
+            transition: color 0.3s ease;
+            text-align: center;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+                color: rgb(54, 54, 169);
+            }
+        }
+
+        .firstSubtitle {
+            color: #000000;
+            font-size: 18px;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+
+        .arrowWrapper {
+            position: absolute;
+            bottom: 60px;
+            transform: translateX(-50%);
+            animation: moveUpDown 2s ease-in-out infinite;
+
+            .firstArrow {
+                height: 20px;
+                width: auto;
+            }
+        }
+    }
+
+    .oneLayer {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        width: 100%;
+        background-color: white;
+        margin-bottom: 400px;
+
+        .imageContainer {
+            flex: 1 1 calc(50% - 30px);
+            max-width: calc(50% - 30px);
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            gap: 40px;
+
+            .image {
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+
+        .textContainer {
+            flex: 1 1 calc(50% - 40px);
+            max-width: calc(50% - 40px);
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .extracurricularName {
+                display: block;
+                font-size: 28px;
+                color: #171923;
+            }
+
+            .date {
+                font-size: 21px;
+                color: #718096;
+                margin-bottom: 7px;
+            }
+
+            .reason {
+                font-weight: 200;
+                font-size: 20px;
+                color: #171923;
+            }
+            .scrollText {
+                color: #a9aaae;
+                font-size: 18px;
+                letter-spacing: 2px;
+                user-select: none;
+                transition: color 0.3s ease;
+                text-align: center;
+                font-weight: 300;
+
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                    color: rgb(54, 54, 169);
+                }
+            }
+        }
+
+        .textCard {
+            flex: 1 1 calc(50% - 40px);
+            max-width: calc(50% - 40px);
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+
+            .extracurricularName {
+                display: block;
+                font-size: 28px;
+                color: #171923;
+                user-select: none;
+            }
+
+            .date {
+                font-size: 21px;
+                color: #718096;
+                margin-bottom: 7px;
+            }
+
+            .reason {
+                font-weight: 200;
+                font-size: 20px;
+                color: #171923;
+            }
+        }
+    }
+
+    .redirectLayer {
+        background-color: white;
+        /* background-image: url("final.jpeg"); */
+        width: 100%;
+
+        .finalText {
+            width: 100%;
+            height: 100%;
+            background-image: url("./final.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+
+            .text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-right: 200px;
+
+                .instructions {
+                    color: #000000;
+                    font-size: 20px;
+                    border-style: none;
+                    background-color: transparent;
+                    font-weight: 300;
+
+                    &:hover {
+                        user-select: none;
+                        cursor: default;
+                    }
+                }
+
+                .scrollText {
+                    color: black;
+                    font-size: 18px;
+                    letter-spacing: 2px;
+                    user-select: none;
+                    transition: color 0.3s ease;
+                    text-align: center;
+                    font-weight: 300;
+                    z-index: 3;
+
+                    &:hover {
+                        user-select: none;
+                        cursor: pointer;
+                        text-decoration: underline;
+                        color: rgb(54, 54, 169);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes moveUpDown {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(22px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

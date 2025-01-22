@@ -1,0 +1,106 @@
+.cardCollection {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+
+    .group {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        width: 100%;
+
+        .imageCard {
+            flex: 1 1 calc(100% - 30px);
+            max-width: calc(100% - 30px);
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            gap: 40px;
+
+            .imageContainer {
+                flex: 1 1 calc(50% - 40px);
+                max-width: calc(50% - 40px);
+
+                .image {
+                    width: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            .textContainer {
+                flex: 1 1 calc(50% - 40px);
+                max-width: calc(50% - 40px);
+                padding-left: 30px;
+                padding-right: 30px;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .extracurricularName {
+                    display: block;
+                    font-size: 28px;
+                    color: #171923;
+                }
+
+                .date {
+                    font-size: 21px;
+                    color: #718096;
+                    margin-bottom: 7px;
+                }
+
+                .reason {
+                    font-weight: 200;
+                    font-size: 20px;
+                    color: #171923;
+                }
+            }
+        }
+
+        .textCard {
+            flex: 1 1 calc(50% - 40px);
+            max-width: calc(50% - 40px);
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+
+            .extracurricularName {
+                display: block;
+                font-size: 28px;
+                color: #171923;
+            }
+
+            .date {
+                font-size: 21px;
+                color: #718096;
+                margin-bottom: 7px;
+            }
+
+            .reason {
+                font-weight: 200;
+                font-size: 20px;
+                color: #171923;
+            }
+        }
+    }
+}

@@ -1,0 +1,263 @@
+.cardCollection {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    background-color: #0d1116;
+    padding-top: 80px;
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        background-color: #0d1116;
+        border-radius: 10px;
+        border-color: #3c434c;
+        border-width: 2px;
+        border-style: solid;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+            0 1px 3px rgba(0, 0, 0, 0.06);
+        width: 800px;
+
+        .textPortion {
+            padding-left: 10px;
+            padding-right: 10px;
+            overflow-wrap: break-word;
+            white-space: normal;
+            word-break: break-all;
+            max-width: 100%;
+
+            .message {
+                font-size: 15px;
+                color: aliceblue;
+                overflow-wrap: break-word;
+                white-space: normal;
+                word-break: break-word;
+                overflow-wrap: anywhere;
+                white-space: normal;
+                line-height: 2rem;
+            }
+        }
+
+        .topPortion {
+            width: 100%;
+            height: 40px;
+            border-bottom: 2px solid #3c434c;
+            background-color: #151b23;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+
+            .author {
+                display: inline;
+                color: aliceblue;
+                font-size: 17px;
+                transition: all 0.2s ease;
+                user-select: none;
+
+                &:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                    color: #66bbff;
+                }
+            }
+
+            .date {
+                display: inline;
+                color: aliceblue;
+                font-size: 15px;
+                user-select: none;
+            }
+
+            .alignWrapper {
+                flex: 1;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-end;
+
+                .SVG {
+                    width: 20px;
+                    height: 20px;
+                    display: inline;
+                    color: #1d1d1f;
+                    transition: color 0.2s ease;
+                    border-radius: 10px;
+
+                    &:hover {
+                        background-color: #9198a1;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    background-color: #0d1116;
+    padding-top: 80px;
+
+    .focusCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 60%;
+        margin-top: 30px;
+        min-height: 65vh;
+        overflow-y: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        background-color: #1d1d1f;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+            0 1px 3px rgba(0, 0, 0, 0.06);
+
+        .buttonContainer {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 100%;
+            height: 80px;
+            padding-left: 20px;
+
+            .fig {
+                height: 100%;
+                width: auto;
+            }
+
+            .additionWrapper {
+                flex: 1;
+                display: flex;
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: flex-end;
+
+                .deleteWrapper {
+                    width: 60px;
+                    height: 30px;
+                    margin-left: 550px;
+
+                    .deleteButton {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 5px;
+                        background-color: red;
+                        border: none;
+                        color: white;
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            cursor: pointer;
+                            background-color: darkred;
+                            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+                            transform: scale(1.05);
+                        }
+                    }
+                }
+
+                .buttonWrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-end;
+                    justify-content: flex-end;
+
+                    .exitButton {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 15px;
+                        padding: 0;
+                        margin: 0;
+                        background-color: #333336;
+                        border: none;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+
+                        .buttonSVG {
+                            padding: 0;
+                            margin: 0;
+                            fill: #bcbcbc;
+                            transition: fill 0.2s ease;
+                            border-radius: 15px;
+
+                            &:hover {
+                                fill: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            .textPortion {
+                padding-left: 10px;
+                padding-right: 10px;
+                overflow-wrap: break-word;
+                white-space: normal;
+                word-break: break-word;
+                overflow-wrap: anywhere;
+                max-width: 100%;
+
+                .focusMessages {
+                    font-size: 16px;
+                    letter-spacing: 2rem;
+                    color: aliceblue;
+                    overflow-wrap: break-word;
+                    white-space: normal;
+                    word-break: break-word;
+                    overflow-wrap: anywhere;
+                    line-height: 3rem;
+                }
+            }
+
+            .focusAuthor {
+                display: inline;
+                color: #66bbff;
+                font-size: 16px;
+
+                &:hover {
+                    text-decoration: underline;
+                    user-select: none;
+                    cursor: pointer;
+                }
+            }
+
+            .focusDate {
+                display: inline;
+                color: white;
+                font-size: 16px;
+            }
+        }
+    }
+}

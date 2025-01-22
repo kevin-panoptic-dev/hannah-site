@@ -1,0 +1,8 @@
+media/gallery/*
+!media/gallery/.gitkeep
+
+media/extracurricular/*
+!media/extracurricular/.gitkeep
+
+User-agent: *
+Disallow: /

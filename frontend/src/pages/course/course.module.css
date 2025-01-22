@@ -1,0 +1,178 @@
+.change_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 100%;
+    background-color: #1b1a22;
+
+    .searchPortion {
+        width: 450px;
+        padding: 20px;
+        height: 100%;
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        cursor: default;
+        user-select: none;
+        overflow: hidden;
+
+        .textContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+
+            .title {
+                color: white;
+                font-size: 35px;
+                padding-top: 60px;
+                text-align: center;
+            }
+
+            .content {
+                color: white;
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+
+        .formContainer {
+            width: 70%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 250px;
+
+            .choiceLabel {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                flex: 1 1 calc(50% - 20px);
+                max-width: calc(50% - 20px);
+
+                .inputGroup {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+
+                    .key {
+                        display: inline;
+                    }
+
+                    .choiceInput {
+                        background-color: transparent;
+                        border-radius: 5px;
+                        border-width: 1px;
+                        border-style: solid;
+                        border-color: #6a6e72;
+                        color: #ffffff;
+                        width: 100%;
+                        height: 20px;
+                        padding: 8px;
+                    }
+                }
+            }
+
+            .numberLabel {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .numberInfo {
+                    font-family: Arial, Helvetica, sans-serif;
+                    color: white;
+                    font-size: 13px;
+                }
+
+                .numberInput {
+                    background-color: transparent;
+                    border-radius: 5px;
+                    border-width: 1px;
+                    border-style: solid;
+                    border-color: #6a6e72;
+                    color: #ffffff;
+                    width: 100%;
+                    height: 40px;
+                    padding: 8px;
+                    max-width: 300px;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+
+            .formButton {
+                margin-top: 35px;
+                background-color: white;
+                border-radius: 5px;
+                border: none;
+                color: #0a0a0a;
+                width: 100%;
+                height: 40px;
+                padding: 8px;
+                font-weight: 600;
+                font-size: 15px;
+                transition: background-color 0.1s ease;
+                max-width: 300px;
+                user-select: none;
+
+                &:hover {
+                    background-color: #ced0d2;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .separator {
+        background-color: #888;
+        width: 5px;
+        height: 100%;
+        box-shadow: 2px 0 6px rgba(255, 255, 255, 0.3);
+
+        &:hover {
+            cursor: ew-resize;
+        }
+    }
+
+    .contentPortion {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        min-height: 100%;
+        background-color: #1b1a22;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 40px;
+        user-select: none;
+
+        .awaitText {
+            color: white;
+            font-size: 35px;
+            padding-top: 60px;
+        }
+
+        .courseTitle {
+            padding-top: 60px;
+            color: white;
+            font-size: 35px;
+            padding-top: 60px;
+            text-align: center;
+        }
+    }
+}
