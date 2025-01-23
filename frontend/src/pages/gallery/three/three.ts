@@ -1,21 +1,21 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/Addons.js";
-import { galleryCard, ThreeType } from "./static/type";
-import styles from "./styles/three.module.css";
-import {
-    generateStar,
-    getBackground,
-    getMoon,
-    moveCamera,
-} from "./static/functions";
+// import * as THREE from "three";
+// import { OrbitControls } from "three/examples/jsm/Addons.js";
+// import { galleryCard, ThreeType } from "./static/type";
+// import styles from "./styles/three.module.css";
+// import {
+//     generateStar,
+//     getBackground,
+//     getMoon,
+//     moveCamera,
+// } from "./static/functions";
+import usePage from "./interface/page/page";
 import useOrbit from "./interface/orbit/orbit";
 import useInterphase from "./interface/interphase/interphase";
 import * as assert from "./static/type";
-import Logout from "../../../components/authentication/logout";
 
 let counter: assert.counter = 0;
 
-function Three({ container, cards }: ThreeType) {
+function Three({ container, cards }: assert.ThreeType) {
     // if (!scene || !camera || !renderer) {
     //     // WARN: node modules, don't tweak //
     //     scene = new THREE.Scene();
@@ -37,7 +37,7 @@ function Three({ container, cards }: ThreeType) {
     //     if (!scene || !camera || !renderer) {
     //         throw new Error("The operation performs successfully");
     //     }
-    //     // WARN: node modules, don't tweak //
+    //     \\ WARN: node modules, don't tweak //
     //     for (let _ = 0; _ < 200; _++) {
     //         const star = generateStar(0.25, 100);
     //         scene.add(star);
@@ -112,7 +112,7 @@ function Three({ container, cards }: ThreeType) {
                 next();
                 loop();
             };
-            const next = useOrbit(container, stop);
+            const next = usePage(container, stop, cards);
         }
 
         if (counter === 3) {
