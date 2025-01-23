@@ -9,10 +9,10 @@ import {
     moveCamera,
 } from "./static/functions";
 import useOrbit from "./interface/orbit/orbit";
+import useInterphase from "./interface/interphase/interphase";
+import * as assert from "./static/type";
 
-let scene: THREE.Scene | undefined = undefined;
-let camera: THREE.PerspectiveCamera | undefined = undefined;
-let renderer: THREE.WebGLRenderer | undefined = undefined;
+let counter: assert.counter = 0;
 
 function Three({ container, cards }: ThreeType) {
     // if (!scene || !camera || !renderer) {
@@ -83,11 +83,42 @@ function Three({ container, cards }: ThreeType) {
     //     animate();
     // }
 
-    const signalContent = () => {
-        cleanupOrbit();
-    };
+    if (counter === 0) {
+        // INFO: in first orbit
+        const stop = () => {
+            counter = 1;
+            next();
+        };
+        const next = useOrbit(container, stop);
+    }
 
-    const cleanupOrbit = useOrbit(container, signalContent);
+    if (counter === 1) {
+        // INFO: in first interphase
+        const stop = () => {
+            counter = 2;
+            next();
+        };
+        const next = useInterphase(container, stop);
+    }
+
+    if (counter === 2) {
+        // INFO: in the main content
+        const stop = () => {
+            counter = 1;
+            next();
+        };
+        const next = useOrbit(container, stop);
+    }
+
+    if (counter === 3) {
+        // INFO: in the second interphase
+        const stop = () => {
+            counter = 0;
+            next();
+            Three({ container, cards });
+        };
+        const next = useInterphase(container, stop);
+    }
 }
 
 export default Three;

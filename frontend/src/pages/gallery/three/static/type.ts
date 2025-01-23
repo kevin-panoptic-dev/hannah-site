@@ -10,4 +10,6 @@ interface ThreeType {
     cards: galleryCard[];
 }
 
-export type { galleryCard, ThreeType };
+type counter = 0 | 1 | 2 | 3;
+
+export type { galleryCard, ThreeType, counter };
