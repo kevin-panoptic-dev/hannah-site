@@ -114,15 +114,25 @@ function useOrbit(
 
     let x = 1;
     let index = 0;
+    let isTerminated = false;
+
+    const println = (text: any) => {
+        if (Math.random() >= 0.99) console.log(text);
+    };
 
     const setCamera = (
         time: number,
         camera: assert.camera,
         tube: THREE.TubeGeometry
     ) => {
-        // INFO: Linear
-        const amplitude = (5 * 1000 * 1) / x;
-        x += 0.001;
+        // INFO: NOT Linear
+        // ERROR: this function has bug, despite the fact that amplitude never below 3000, the speed can still get very wild
+        const amplitude = 5000 / x;
+
+        // println(amplitude);
+
+        x += 0.0002;
+
         const point = ((time * 0.1) % amplitude) / amplitude;
         const current = tube.parameters.path.getPointAt(point);
         const lookAt = tube.parameters.path.getPointAt(
@@ -141,7 +151,10 @@ function useOrbit(
 
         index += predict(current.y, future.y);
 
-        index >= threshold && terminate();
+        if (index >= threshold && !isTerminated) {
+            isTerminated = true;
+            terminate();
+        }
 
         // if (Math.random() >= 0.99) {
         //     console.log("Current Value:");
@@ -190,7 +203,6 @@ function useOrbit(
         setTimeout(() => {
             cleanup();
             controls.dispose();
-
             composer.passes.forEach((pass) => {
                 if (pass.dispose) pass.dispose();
             });
@@ -208,7 +220,7 @@ function useOrbit(
             material.dispose();
             renderer!.dispose();
             renderer!.domElement.remove();
-        }, 1000);
+        }, 800);
     };
 }
 

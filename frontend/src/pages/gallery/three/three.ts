@@ -11,6 +11,7 @@ import {
 import useOrbit from "./interface/orbit/orbit";
 import useInterphase from "./interface/interphase/interphase";
 import * as assert from "./static/type";
+import Logout from "../../../components/authentication/logout";
 
 let counter: assert.counter = 0;
 
@@ -83,42 +84,49 @@ function Three({ container, cards }: ThreeType) {
     //     animate();
     // }
 
-    if (counter === 0) {
-        // INFO: in first orbit
-        const stop = () => {
-            counter = 1;
-            next();
-        };
-        const next = useOrbit(container, stop);
-    }
+    const loop = () => {
+        if (counter === 0) {
+            // INFO: in first orbit
+            const stop = () => {
+                counter = 1;
+                next();
+                loop();
+            };
+            const next = useOrbit(container, stop);
+        }
 
-    if (counter === 1) {
-        // INFO: in first interphase
-        const stop = () => {
-            counter = 2;
-            next();
-        };
-        const next = useInterphase(container, stop);
-    }
+        if (counter === 1) {
+            // INFO: in first interphase
+            const stop = () => {
+                counter = 2;
+                next();
+                loop();
+            };
+            const next = useInterphase(container, stop);
+        }
 
-    if (counter === 2) {
-        // INFO: in the main content
-        const stop = () => {
-            counter = 1;
-            next();
-        };
-        const next = useOrbit(container, stop);
-    }
+        if (counter === 2) {
+            // INFO: in the main content
+            const stop = () => {
+                counter = 1;
+                next();
+                loop();
+            };
+            const next = useOrbit(container, stop);
+        }
 
-    if (counter === 3) {
-        // INFO: in the second interphase
-        const stop = () => {
-            counter = 0;
-            next();
-            Three({ container, cards });
-        };
-        const next = useInterphase(container, stop);
-    }
+        if (counter === 3) {
+            // INFO: in the second interphase
+            const stop = () => {
+                counter = 0;
+                next();
+                loop();
+            };
+            const next = useInterphase(container, stop);
+        }
+    };
+
+    loop();
 }
 
 export default Three;

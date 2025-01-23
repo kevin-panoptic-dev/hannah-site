@@ -29,12 +29,12 @@ function useInterphase(
             0.1,
             1000
         );
+        renderer = new THREE.WebGLRenderer({ antialias: true });
     }
     if (!scene || !camera || !renderer) {
         throw "The program runs successfully";
     }
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.domElement.className = styles.background;
@@ -43,6 +43,7 @@ function useInterphase(
     // # # # # # # # # # # # # # # # # # # # # //
 
     const colorFamily = chooseColor();
+    scene.background = new THREE.Color(pickColor(colorFamily));
     const bars: assert.bar[] = [];
 
     const createBar = (color: number, x: number, y: number) => {
@@ -51,6 +52,7 @@ function useInterphase(
             color: color,
         });
         const bar = new THREE.Mesh(geometry, material);
+
         bar.position.set(x, y, 0);
         bar.rotation.z = Math.PI / 4;
         return bar;
@@ -68,19 +70,24 @@ function useInterphase(
         index <= horizontalBarNumber + verticalBarNumber;
         index++
     ) {
-        const color = pickColor(colorFamily);
+        const color = pickColor(chooseColor());
         const [x, y] = positions(
             index + 1,
             barWidth,
-            horizontalBarNumber
+            horizontalBarNumber,
+            barHeight
         );
-
         const bar = createBar(color, x, y);
         bars.push(bar);
     }
 
+    const moveBar = (bar: assert.bar) => {
+        bar.position.x -= horizontalSpeed;
+        bar.position.y += verticalSpeed;
+    };
+
     for (const bar of bars) {
-        setTimeout(() => scene!.add(bar), 100);
+        scene.add(bar);
     }
 
     // # # # # # # # # # # # # # # # # # # # # //
@@ -98,9 +105,32 @@ function useInterphase(
         const animate = () => {
             renderer.render(scene, camera);
             animationId = requestAnimationFrame(animate);
-            for (const bar of bars) {
-                bar.position.x += horizontalSpeed;
-                bar.position.y += verticalSpeed;
+            if (bars) {
+                for (let index = 0; index < bars.length; index++) {
+                    const bar = bars[index];
+                    // if (index < horizontalBarNumber) {
+                    //     if (
+                    //         !(
+                    //             bar.position.y +
+                    //                 (Math.sqrt(2) / 2) * barHeight >
+                    //             (-1 / 2) * window.innerHeight - 10
+                    //         )
+                    //     ) {
+                    //         moveBar(bar);
+                    //     }
+                    // } else {
+                    //     if (
+                    //         !(
+                    //             bar.position.x -
+                    //                 (Math.sqrt(2) / 2) * barHeight <
+                    //             (1 / 2) * window.innerWidth + 10
+                    //         )
+                    //     ) {
+                    //         moveBar(bar);
+                    //     }
+                    // }
+                    moveBar(bar);
+                }
             }
         };
 
@@ -110,23 +140,25 @@ function useInterphase(
             cancelAnimationFrame(animationId);
             renderer.domElement.remove();
             renderer.dispose();
-            for (const bar of bars) {
-                bar.geometry.dispose();
-                if (Array.isArray(bar.material)) {
-                    for (const mat of bar.material) {
-                        mat.dispose();
+            if (bars) {
+                for (const bar of bars) {
+                    bar.geometry.dispose();
+                    if (Array.isArray(bar.material)) {
+                        for (const mat of bar.material) {
+                            mat.dispose();
+                        }
+                    } else {
+                        bar.material.dispose();
                     }
-                } else {
-                    bar.material.dispose();
+                    scene.remove(bar);
                 }
-                scene.remove(bar);
             }
         };
     };
 
     const cleanup = run(scene, camera, renderer, container);
 
-    setTimeout(() => terminate(), 5000000000);
+    setTimeout(terminate, 2000);
 
     return cleanup;
 }
