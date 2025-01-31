@@ -447,7 +447,7 @@ function Home() {
                         >
                             <div className={styles.firstWrapper}>
                                 <p className={styles.firstTitle}>
-                                    This is Text
+                                    Hannah's website
                                 </p>
                                 <p className={styles.firstSubtitle}>
                                     Scroll to Explore
